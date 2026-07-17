@@ -544,6 +544,7 @@
       <a data-page="chart"><span class="icon">🦷</span> Dental Chart</a>
       <a data-page="consent"><span class="icon">📝</span> Informed Consent</a>
       <a data-page="billing"><span class="icon">💳</span> Billing</a>
+      <a data-page="treatment-entry"><span class="icon">💉</span> Treatment Entry</a>
     </nav>
     <div class="sidebar-footer">
       <a id="logoutBtn" style="cursor:pointer;"><span class="icon">🚪</span> Logout</a>
@@ -565,7 +566,7 @@
           <div class="page-actions">
             <button class="btn btn-primary btn-sm" onclick="localStorage.removeItem('dentalPatient');document.querySelector('#mainNav a[data-page=&quot;consent&quot;]').click();">➕ New Patient</button>
             <button class="btn btn-outline btn-sm" onclick="localStorage.removeItem('dentalPatient');window.location.href='dental-chart.html';">📋 New Patient Intake</button>
-            <button class="btn btn-outline btn-sm" onclick="window.location.href='treatment-entry.html';">💉 Treatment Entry</button>
+            <button class="btn btn-outline btn-sm" onclick="document.querySelector('#mainNav a[data-page=&quot;treatment-entry&quot;]').click();">💉 Treatment Entry</button>
           </div>
         </div>
 
@@ -1178,6 +1179,171 @@
         </div>
       </div>
 
+      <!-- ===== TREATMENT ENTRY ===== -->
+      <div id="page-treatment-entry" class="hidden">
+        <div class="page-header">
+          <div>
+            <h2>New Treatment Entry</h2>
+            <p>Log procedure details, dental maps, and charges for patient records.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline btn-sm" onclick="alert('Draft saved successfully!')">Save Draft</button>
+            <button class="btn btn-primary btn-sm">Finish &amp; Billing</button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:7fr 5fr;gap:16px;margin-top:16px;">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="card">
+              <div class="card-header"><h3>Procedure Details</h3></div>
+              <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group"><label>Treatment Date</label><input class="form-control" type="date" value="2024-11-20"></div>
+                <div class="form-group"><label>Lead Dentist</label>
+                  <select class="form-control"><option>Dr. Elena Callejo</option><option>Dr. Roberto Galleta</option><option>Dr. Sarah Miller</option></select>
+                </div>
+                <div class="form-group"><label>Procedure Type</label>
+                  <select class="form-control"><option>Root Canal Therapy</option><option>Deep Cleaning (Scaling)</option><option>Dental Crown Placement</option><option>Wisdom Tooth Extraction</option><option>Routine Checkup</option></select>
+                </div>
+                <div class="form-group"><label>Status</label>
+                  <select class="form-control"><option>In-Progress</option><option>Scheduled</option><option>Completed</option></select>
+                </div>
+              </div>
+              <div class="card-body" style="border-top:1px solid var(--outline-variant);">
+                <div class="form-group"><label>Detailed Notes</label>
+                  <textarea class="form-control" rows="4" placeholder="Document the procedure steps, observations, and patient response..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+                <h3>Charges &amp; Costs</h3>
+                <button class="btn btn-ghost btn-sm">+ Add Item</button>
+              </div>
+              <div class="card-body" style="padding:0;">
+                <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                  <thead>
+                    <tr style="background:var(--surface-low);text-align:left;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--on-surface-variant);">
+                      <th style="padding:14px 16px;">Description</th><th style="padding:14px 16px;">Qty</th><th style="padding:14px 16px;text-align:right;">Unit Price</th><th style="padding:14px 16px;text-align:right;">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-top:1px solid var(--outline-variant);">
+                      <td style="padding:14px 16px;font-weight:600;">Root Canal - Upper Molar</td>
+                      <td style="padding:14px 16px;">1</td>
+                      <td style="padding:14px 16px;text-align:right;">₱450.00</td>
+                      <td style="padding:14px 16px;text-align:right;font-weight:600;">₱450.00</td>
+                    </tr>
+                    <tr style="border-top:1px solid var(--outline-variant);">
+                      <td style="padding:14px 16px;font-weight:600;">Local Anesthesia</td>
+                      <td style="padding:14px 16px;">2</td>
+                      <td style="padding:14px 16px;text-align:right;">₱45.00</td>
+                      <td style="padding:14px 16px;text-align:right;font-weight:600;">₱90.00</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr style="background:rgba(0,31,92,0.05);">
+                      <td style="padding:14px 16px;text-align:right;font-weight:700;color:var(--primary);" colspan="3">Subtotal</td>
+                      <td style="padding:14px 16px;text-align:right;font-weight:700;color:var(--primary);font-size:18px;">₱540.00</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="card-body" style="border-top:1px solid var(--outline-variant);display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group"><label>Payment Method</label>
+                  <select class="form-control"><option>Cash</option><option>Credit Card</option><option>HMO / Insurance</option><option>Bank Transfer</option></select>
+                </div>
+                <div class="form-group"><label>Payment Status</label>
+                  <select class="form-control"><option>Paid in Full</option><option>Partial Payment</option><option>Pending</option></select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="card" style="flex:1;">
+              <div class="card-header" style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <div>
+                  <h3>Tooth Selector</h3>
+                  <p style="font-size:12px;color:var(--on-surface-variant);margin-top:4px;">Select the affected teeth for this procedure.</p>
+                </div>
+                <button class="btn btn-ghost btn-sm" id="clear-teeth-tx" style="color:var(--error);">Clear</button>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;align-items:center;padding:24px;">
+                <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:6px;max-width:320px;width:100%;" id="tooth-grid-tx">
+                  <div style="grid-column:1/-1;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--outline);margin-bottom:4px;">UPPER ARCH</div>
+                  <button class="tooth-btn-tx" data-tooth="1" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">1</button>
+                  <button class="tooth-btn-tx" data-tooth="2" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">2</button>
+                  <button class="tooth-btn-tx" data-tooth="3" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">3</button>
+                  <button class="tooth-btn-tx" data-tooth="4" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">4</button>
+                  <button class="tooth-btn-tx" data-tooth="5" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">5</button>
+                  <button class="tooth-btn-tx" data-tooth="6" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">6</button>
+                  <button class="tooth-btn-tx" data-tooth="7" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">7</button>
+                  <button class="tooth-btn-tx" data-tooth="8" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">8</button>
+                  <button class="tooth-btn-tx" data-tooth="9" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">9</button>
+                  <button class="tooth-btn-tx" data-tooth="10" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">10</button>
+                  <button class="tooth-btn-tx" data-tooth="11" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">11</button>
+                  <button class="tooth-btn-tx" data-tooth="12" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">12</button>
+                  <button class="tooth-btn-tx" data-tooth="13" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">13</button>
+                  <button class="tooth-btn-tx" data-tooth="14" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">14</button>
+                  <button class="tooth-btn-tx" data-tooth="15" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">15</button>
+                  <button class="tooth-btn-tx" data-tooth="16" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">16</button>
+                  <div style="grid-column:1/-1;height:1px;background:var(--outline-variant);margin:8px 0;"></div>
+                  <div style="grid-column:1/-1;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--outline);margin-bottom:4px;">LOWER ARCH</div>
+                  <button class="tooth-btn-tx" data-tooth="17" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">17</button>
+                  <button class="tooth-btn-tx" data-tooth="18" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">18</button>
+                  <button class="tooth-btn-tx" data-tooth="19" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">19</button>
+                  <button class="tooth-btn-tx" data-tooth="20" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">20</button>
+                  <button class="tooth-btn-tx" data-tooth="21" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">21</button>
+                  <button class="tooth-btn-tx" data-tooth="22" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">22</button>
+                  <button class="tooth-btn-tx" data-tooth="23" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">23</button>
+                  <button class="tooth-btn-tx" data-tooth="24" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">24</button>
+                  <button class="tooth-btn-tx" data-tooth="25" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">25</button>
+                  <button class="tooth-btn-tx" data-tooth="26" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">26</button>
+                  <button class="tooth-btn-tx" data-tooth="27" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">27</button>
+                  <button class="tooth-btn-tx" data-tooth="28" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">28</button>
+                  <button class="tooth-btn-tx" data-tooth="29" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">29</button>
+                  <button class="tooth-btn-tx" data-tooth="30" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">30</button>
+                  <button class="tooth-btn-tx" data-tooth="31" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">31</button>
+                  <button class="tooth-btn-tx" data-tooth="32" style="width:100%;padding:8px 0;border:1px solid var(--outline-variant);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:11px;text-align:center;transition:all 0.15s;">32</button>
+                </div>
+              </div>
+              <div class="card-body" style="border-top:1px solid var(--outline-variant);">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                  <span style="font-size:12px;color:var(--on-surface-variant);font-weight:600;">Active Selections:</span>
+                  <span style="background:var(--primary-fixed);color:var(--on-primary-fixed);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;" id="selection-count-tx">0 Teeth</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;" id="selected-list-tx">
+                  <span style="font-size:12px;color:var(--outline);font-style:italic;">No teeth selected</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px;margin-top:16px;">
+          <div class="card">
+            <div class="card-body" style="display:flex;align-items:center;gap:16px;">
+              <div style="width:64px;height:64px;border-radius:var(--radius-sm);background:var(--surface-variant);overflow:hidden;flex-shrink:0;"></div>
+              <div>
+                <p style="font-weight:600;color:var(--on-surface);">Alex Johnston</p>
+                <p style="font-size:12px;color:var(--on-surface-variant);">Last visit: Oct 12, 2024</p>
+                <span style="display:inline-block;margin-top:4px;padding:2px 8px;background:var(--tertiary-fixed);color:var(--on-tertiary-fixed);font-size:10px;font-weight:700;border-radius:20px;text-transform:uppercase;letter-spacing:0.05em;">Premium Care</span>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="background:var(--primary-container);color:var(--on-primary);">
+            <div class="card-body" style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <h4 style="font-size:16px;font-weight:700;margin-bottom:4px;">Ready for Billing?</h4>
+                <p style="font-size:14px;opacity:0.8;">All procedure details and tooth mappings will be synchronized with the patient's financial record.</p>
+              </div>
+              <button class="btn btn-primary" style="background:var(--on-primary);color:var(--primary);white-space:nowrap;">Proceed to Billing →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
     <footer style="text-align:center;padding:16px 24px;font-size:12px;color:var(--on-surface-variant);border-top:1px solid var(--outline-variant);">
       &copy; 2026 Callejo Dental Clinic. All rights reserved.
@@ -1715,6 +1881,64 @@
       e.target.classList.toggle('solid-blue');
     }
   });
+
+  // Treatment Entry tooth selector
+  (function() {
+    var buttons = document.querySelectorAll('.tooth-btn-tx');
+    var countDisplay = document.getElementById('selection-count-tx');
+    var listDisplay = document.getElementById('selected-list-tx');
+    var clearBtn = document.getElementById('clear-teeth-tx');
+    var selected = {};
+
+    function update() {
+      var keys = Object.keys(selected);
+      countDisplay.innerText = keys.length + ' Teeth';
+      if (keys.length === 0) {
+        listDisplay.innerHTML = '<span style="font-size:12px;color:var(--outline);font-style:italic;">No teeth selected</span>';
+      } else {
+        listDisplay.innerHTML = keys.sort(function(a,b){return a-b}).map(function(n) {
+          return '<span style="background:var(--primary);color:var(--on-primary);font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--radius-sm);display:inline-flex;align-items:center;gap:4px;">Tooth ' + n + '<button onclick="removeToothTx(' + n + ')" style="background:none;border:none;color:inherit;cursor:pointer;padding:0;font-size:12px;line-height:1;">×</button></span>';
+        }).join('');
+      }
+    }
+
+    window.removeToothTx = function(num) {
+      delete selected[num];
+      var btn = document.querySelector('.tooth-btn-tx[data-tooth="' + num + '"]');
+      if (btn) { btn.style.background = '#fff'; btn.style.color = 'inherit'; btn.style.borderColor = 'var(--outline-variant)'; }
+      update();
+    };
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var num = this.dataset.tooth;
+        if (selected[num]) {
+          delete selected[num];
+          this.style.background = '#fff';
+          this.style.color = 'inherit';
+          this.style.borderColor = 'var(--outline-variant)';
+        } else {
+          selected[num] = true;
+          this.style.background = 'var(--primary)';
+          this.style.color = '#fff';
+          this.style.borderColor = 'var(--primary)';
+        }
+        update();
+      });
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function() {
+        selected = {};
+        buttons.forEach(function(btn) {
+          btn.style.background = '#fff';
+          btn.style.color = 'inherit';
+          btn.style.borderColor = 'var(--outline-variant)';
+        });
+        update();
+      });
+    }
+  })();
 </script>
 </body>
 </html>
