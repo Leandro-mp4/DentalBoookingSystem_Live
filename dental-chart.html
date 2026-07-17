@@ -1,0 +1,735 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Digital Dental Chart - Galleta-Callejo Dental Clinic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800;900&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-card { border: 1px solid #e0e3e5; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f7f9fb; }
+        ::-webkit-scrollbar-thumb { background: #d2e1fa; border-radius: 10px; }
+        .signature-pad {
+            border: 2px dashed #c4c6d4;
+            background-color: #ffffff;
+            height: 120px;
+            width: 100%;
+            cursor: crosshair;
+            touch-action: none;
+        }
+        .step-content { display: none; }
+        .step-content.active { display: block; }
+        
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #e0e3e5;
+            z-index: 0;
+        }
+        .progress-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #001f5c;
+            transition: width 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .sidebar-nav {
+                width: 280px;
+                height: 100vh;
+                position: fixed;
+                left: 0;
+                top: 0;
+            }
+            .main-content {
+                margin-left: 280px;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#3859b1",
+                        "on-surface-variant": "#444652",
+                        "on-tertiary-container": "#24acf1",
+                        "inverse-primary": "#b4c5ff",
+                        "secondary-fixed": "#d5e3fc",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-container": "#556379",
+                        "tertiary-fixed": "#c9e6ff",
+                        "on-primary-fixed-variant": "#1a4198",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "secondary": "#515f74",
+                        "primary-container": "#00328a",
+                        "on-surface": "#191c1e",
+                        "outline": "#747683",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "tertiary-container": "#003d5a",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "outline-variant": "#c4c6d4",
+                        "on-primary-container": "#809ffc",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#d2e1fa",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "surface-dim": "#d8dadc",
+                        "on-background": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "primary": "#001f5c",
+                        "on-primary-fixed": "#00174a",
+                        "tertiary": "#00263a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "lg": "24px",
+                        "margin-desktop": "32px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "max-width": "1440px",
+                        "xl": "32px",
+                        "2xl": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Work Sans"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Work Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Work Sans"],
+                        "headline-md": ["Work Sans"],
+                        "headline-sm": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen">
+<!-- Sidebar Navigation -->
+<main class="main-content pt-2xl pb-2xl px-margin-mobile max-w-5xl mx-auto">
+<div class="text-center mb-2xl">
+<h1 class="font-headline-xl text-headline-xl text-primary">Patient Dental Chart</h1>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Please complete all sections of this digital chart accurately for Galleta-Callejo Dental Clinic clinical records.</p>
+</div>
+<!-- Progress Indicator -->
+<div class="relative mb-2xl max-w-3xl mx-auto px-4">
+<div class="progress-line">
+<div class="progress-line-fill" id="progressLine" style="width: 0%;"></div>
+</div>
+<div class="relative flex justify-between">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 step-indicator" data-step="1">
+<span class="font-label-md">1</span>
+</div>
+<span class="text-label-sm text-on-surface-variant hidden md:block">Info</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center z-10 step-indicator" data-step="2">
+<span class="font-label-md">2</span>
+</div>
+<span class="text-label-sm text-on-surface-variant hidden md:block">Dental</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center z-10 step-indicator" data-step="3">
+<span class="font-label-md">3</span>
+</div>
+<span class="text-label-sm text-on-surface-variant hidden md:block">Medical</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center z-10 step-indicator" data-step="4">
+<span class="font-label-md">4</span>
+</div>
+<span class="text-label-sm text-on-surface-variant hidden md:block">Health</span>
+</div>
+<!-- Step 5 -->
+<div class="flex flex-col items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center z-10 step-indicator" data-step="5">
+<span class="font-label-md">5</span>
+</div>
+<span class="text-label-sm text-on-surface-variant hidden md:block">Sign</span>
+</div>
+</div>
+</div>
+<form id="multiStepForm" onsubmit="event.preventDefault(); window.location.href='{{DATA:SCREEN:SCREEN_14}}';">
+<!-- Step 1: Patient Information Record -->
+<div class="step-content active" id="step1">
+<section class="space-y-xl">
+<div class="flex items-center gap-md mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">badge</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Patient Information Record</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl form-card shadow-sm grid grid-cols-1 md:grid-cols-6 gap-lg">
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Last Name</label>
+<input id="prefill-lastName" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" required="" type="text">
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">First Name</label>
+<input id="prefill-firstName" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" required="" type="text">
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Middle Name</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Birthday (mm/dd/yy)</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" required="" type="date">
+</div>
+<div class="space-y-xs md:col-span-1">
+<label class="block font-label-md text-label-md text-on-surface-variant">Age</label>
+<input id="prefill-age" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="number">
+</div>
+<div class="space-y-xs md:col-span-1">
+<label class="block font-label-md text-label-md text-on-surface-variant">Sex</label>
+<select id="prefill-sex" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none">
+<option value="M">Male</option>
+<option value="F">Female</option>
+</select>
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Nickname</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs md:col-span-3">
+<label class="block font-label-md text-label-md text-on-surface-variant">Religion</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs md:col-span-3">
+<label class="block font-label-md text-label-md text-on-surface-variant">Nationality</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Home No.</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="tel">
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Office No.</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="tel">
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Fax No.</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="tel">
+</div>
+<div class="space-y-xs md:col-span-6">
+<label class="block font-label-md text-label-md text-on-surface-variant">Home Address</label>
+<textarea class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" rows="2"></textarea>
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Cell/Mobile No.</label>
+<input id="prefill-contact" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" required="" type="tel">
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Occupation</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Email Add</label>
+<input id="prefill-email" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="email">
+</div>
+<div class="space-y-xs md:col-span-3">
+<label class="block font-label-md text-label-md text-on-surface-variant">Dental Insurance</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs md:col-span-3">
+<label class="block font-label-md text-label-md text-on-surface-variant">Effective Date</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface outline-none" type="date">
+</div>
+<div class="space-y-xs md:col-span-6 pt-md border-t border-outline-variant">
+<p class="font-label-sm text-label-sm text-primary uppercase mb-xs">For Minors:</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">Parent / Guardian's Name</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">Occupation</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="text">
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Step 2: Dental History -->
+<div class="step-content" id="step2">
+<section class="space-y-lg">
+<div class="flex items-center gap-md mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">dentistry</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Dental History</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl form-card shadow-sm space-y-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">Previous Dentist</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" placeholder="Dr." type="text">
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">Last Dental Visit</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" placeholder="Approximate Date" type="text">
+</div>
+</div>
+<div class="space-y-xs border-t border-outline-variant pt-lg">
+<label class="block font-label-md text-label-md text-on-surface-variant">Whom may we thank for referring you?</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">What is the reason for dental consultation?</label>
+<input id="prefill-treatment" class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="text">
+</div>
+</div>
+</section>
+</div>
+<!-- Step 3: Medical History -->
+<div class="step-content" id="step3">
+<section class="space-y-lg">
+<div class="flex items-center gap-md mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">medical_services</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Medical History</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl form-card shadow-sm grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">Name of Physician</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" placeholder="Dr." type="text">
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">Specialty (if applicable)</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">Office Address</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">Office Number</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="tel">
+</div>
+</div>
+</section>
+</div>
+<!-- Step 4: Health Questionnaire & Medical Conditions -->
+<div class="step-content" id="step4">
+<section class="space-y-xl">
+<div>
+<div class="flex items-center gap-md mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">quiz</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Health Questionnaire</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl form-card shadow-sm space-y-md mb-xl">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-center py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">1.</div>
+<div class="md:col-span-9 text-body-md">Are you in good health?</div>
+<div class="md:col-span-2 flex gap-lg">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q1" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q1" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-start py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">2.</div>
+<div class="md:col-span-9 space-y-sm">
+<div class="text-body-md">Are you in Medical treatment now?</div>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg text-sm bg-surface" placeholder="If so, what is the condition being treated?" type="text">
+</div>
+<div class="md:col-span-2 flex gap-lg pt-1">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q2" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q2" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-start py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">3.</div>
+<div class="md:col-span-9 space-y-sm">
+<div class="text-body-md">Have you ever had serious illness or surgical operation?</div>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg text-sm bg-surface" placeholder="If so, what illness or operation?" type="text">
+</div>
+<div class="md:col-span-2 flex gap-lg pt-1">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q3" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q3" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-start py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">4.</div>
+<div class="md:col-span-9 space-y-sm">
+<div class="text-body-md">Have you ever been hospitalized?</div>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg text-sm bg-surface" placeholder="If so, when and why?" type="text">
+</div>
+<div class="md:col-span-2 flex gap-lg pt-1">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q4" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q4" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-start py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">5.</div>
+<div class="md:col-span-9 space-y-sm">
+<div class="text-body-md">Are you taking any prescription/non-prescription medication?</div>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg text-sm bg-surface" placeholder="If so, please specify" type="text">
+</div>
+<div class="md:col-span-2 flex gap-lg pt-1">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q5" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q5" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-center py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">6.</div>
+<div class="md:col-span-9 text-body-md">Do you use tobacco products?</div>
+<div class="md:col-span-2 flex gap-lg">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q6" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q6" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-center py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">7.</div>
+<div class="md:col-span-9 text-body-md">Do you use alcohol, cocaine or other dangerous drugs?</div>
+<div class="md:col-span-2 flex gap-lg">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q7" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q7" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-start py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">8.</div>
+<div class="md:col-span-9 space-y-sm">
+<div class="text-body-md">Are you allergic to any of the following?</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-sm">
+<label class="flex items-center gap-xs text-body-sm"><input class="rounded text-primary" type="checkbox"> Local Anesthetic</label>
+<label class="flex items-center gap-xs text-body-sm"><input class="rounded text-primary" type="checkbox"> Penicillin, Antibiotics</label>
+<label class="flex items-center gap-xs text-body-sm"><input class="rounded text-primary" type="checkbox"> Sulfa drugs</label>
+<label class="flex items-center gap-xs text-body-sm"><input class="rounded text-primary" type="checkbox"> Aspirin</label>
+<label class="flex items-center gap-xs text-body-sm"><input class="rounded text-primary" type="checkbox"> Latex</label>
+<label class="flex items-center gap-xs text-body-sm"><input class="rounded text-primary" type="checkbox"> Others</label>
+</div>
+</div>
+<div class="md:col-span-2 flex gap-lg pt-1">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q8" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q8" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-center py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">9.</div>
+<div class="md:col-span-7 text-body-md">Bleeding Time:</div>
+<div class="md:col-span-4">
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg text-sm bg-surface" placeholder="Record time here" type="text">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-start py-sm border-b border-surface-variant">
+<div class="md:col-span-1 text-on-surface-variant font-bold">10.</div>
+<div class="md:col-span-11 space-y-md">
+<div class="font-label-sm text-label-sm text-primary uppercase">For Women only:</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-center">
+<div class="md:col-span-8 text-body-md">Are you pregnant?</div>
+<div class="md:col-span-4 flex gap-lg">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q10_1" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q10_1" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-center">
+<div class="md:col-span-8 text-body-md">Are you nursing?</div>
+<div class="md:col-span-4 flex gap-lg">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q10_2" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q10_2" type="radio" value="no"> No</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-center">
+<div class="md:col-span-8 text-body-md">Are you taking birth control pills?</div>
+<div class="md:col-span-4 flex gap-lg">
+<label class="flex items-center gap-xs"><input class="text-primary" name="q10_3" type="radio" value="yes"> Yes</label>
+<label class="flex items-center gap-xs"><input class="text-primary" name="q10_3" type="radio" value="no"> No</label>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg pt-md">
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">11. Blood Type</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="text">
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant">12. Blood Pressure</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg bg-surface outline-none" type="text">
+</div>
+</div>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-md mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">fact_check</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Medical Conditions</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl form-card shadow-sm">
+<p class="text-label-md text-on-surface-variant mb-lg">13. Do you have or have you had any of the following? Check which apply.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-x-lg gap-y-sm">
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">High Blood Pressure</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Heart Disease</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Cancer / Tumors</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Low Blood Pressure</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Heart Murmur</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Anemia</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Epilepsy / Convulsions</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Hepatitis / Liver Disease</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Diabetes</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Arthritis / Rheumatism</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Asthma</span>
+</label>
+<label class="flex items-center gap-sm p-xs hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<input class="rounded text-primary w-4 h-4" type="checkbox"><span class="text-body-sm">Other</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Step 5: Patient Acknowledgment -->
+<div class="step-content" id="step5">
+<section class="space-y-lg">
+<div class="flex items-center gap-md mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">draw</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Patient Acknowledgment</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl form-card shadow-sm space-y-md">
+<p class="text-body-md text-on-surface-variant italic">I certify that the information given above is true and correct to the best of my knowledge for Galleta-Callejo Dental Clinic records.</p>
+<canvas class="signature-pad rounded-lg" id="sigCanvas" width="600" height="120"></canvas>
+<div class="flex justify-end">
+<span class="text-label-sm text-on-surface-variant font-bold border-t border-outline-variant pt-xs w-64 text-right">Signature</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Navigation Actions -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-md pt-lg border-t border-outline-variant mt-2xl">
+<p class="text-body-sm text-on-surface-variant italic" id="legalText">By submitting, you agree to our Terms of Service and Privacy Policy regarding data encryption and medical records.</p>
+<div class="flex gap-md w-full md:w-auto">
+<button class="hidden flex-1 md:flex-none px-xl py-md rounded-lg border border-outline text-primary font-label-md hover:bg-surface-variant transition-all flex items-center justify-center gap-sm" id="backBtn" type="button">
+<span class="material-symbols-outlined text-md">arrow_back</span>
+                        Back
+                    </button>
+<button class="flex-1 md:flex-none px-xl py-md rounded-lg border border-outline text-primary font-label-md hover:bg-surface-variant transition-all" id="draftBtn" onclick="window.location.href='index.html'" type="button">Save Draft</button>
+<button class="flex-1 md:flex-none px-xl py-md rounded-lg bg-primary text-on-primary font-label-md hover:opacity-90 transition-all shadow-lg flex items-center justify-center gap-sm" id="nextBtn" type="button">
+                        Next Step
+                        <span class="material-symbols-outlined text-md">arrow_forward</span>
+</button>
+<button class="hidden flex-1 md:flex-none px-xl py-md rounded-lg bg-primary text-on-primary font-label-md hover:opacity-90 transition-all shadow-lg flex items-center justify-center gap-sm" id="submitBtn" type="submit">
+                        Submit Digital Chart
+                        <span class="material-symbols-outlined text-md">check_circle</span>
+</button>
+</div>
+</div>
+</form>
+<!-- Compliance Badges -->
+<div class="mt-2xl grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="p-lg bg-tertiary-fixed rounded-xl space-y-sm">
+<span class="material-symbols-outlined text-on-tertiary-fixed text-2xl">security</span>
+<h4 class="font-headline-sm text-headline-sm text-on-tertiary-fixed">HIPAA Compliant</h4>
+<p class="text-body-sm text-on-tertiary-fixed-variant">Encrypted following international dental health standards.</p>
+</div>
+<div class="p-lg bg-secondary-fixed rounded-xl space-y-sm">
+<span class="material-symbols-outlined text-on-secondary-fixed text-2xl">schedule</span>
+<h4 class="font-headline-sm text-headline-sm text-on-secondary-fixed">Real-time Sync</h4>
+<p class="text-body-sm text-on-secondary-fixed-variant">Information is instantly updated in our clinic management system.</p>
+</div>
+<div class="p-lg bg-primary-fixed rounded-xl space-y-sm">
+<span class="material-symbols-outlined text-on-primary-fixed text-2xl">verified_user</span>
+<h4 class="font-headline-sm text-headline-sm text-on-primary-fixed">Verified Entry</h4>
+<p class="text-body-sm text-on-primary-fixed-variant">Assists our practitioners in providing tailored care.</p>
+</div>
+</div>
+</main>
+<footer class="main-content bg-surface-container-low py-xl px-margin-desktop border-t border-outline-variant mt-2xl">
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-lg">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary font-black text-xl">GC</div>
+<div>
+<h5 class="font-headline-sm text-headline-sm text-primary">Galleta-Callejo Dental Clinic</h5>
+<p class="text-body-sm text-on-surface-variant">Modern Dental Practice Management</p>
+</div>
+</div>
+<nav class="flex gap-lg">
+<a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Patient Rights</a>
+<a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+</nav>
+</div>
+</footer>
+<script>
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        const nextBtn = document.getElementById('nextBtn');
+        const backBtn = document.getElementById('backBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const progressLine = document.getElementById('progressLine');
+        const indicators = document.querySelectorAll('.step-indicator');
+        const contents = document.querySelectorAll('.step-content');
+
+        // Prefill from localStorage (set by Patient Directory View button)
+        (function() {
+            var data = localStorage.getItem('dentalPatient');
+            if (data) {
+                try {
+                    var p = JSON.parse(data);
+                    if (p.lastName) document.getElementById('prefill-lastName').value = p.lastName;
+                    if (p.firstName) document.getElementById('prefill-firstName').value = p.firstName;
+                    if (p.age) document.getElementById('prefill-age').value = p.age;
+                    if (p.sex) document.getElementById('prefill-sex').value = p.sex;
+                    if (p.contact) document.getElementById('prefill-contact').value = p.contact;
+                    if (p.email) document.getElementById('prefill-email').value = p.email;
+                    if (p.treatment) document.getElementById('prefill-treatment').value = p.treatment;
+                } catch(e) {}
+                localStorage.removeItem('dentalPatient');
+            }
+        })();
+
+        function updateForm() {
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById(`step${currentStep}`).classList.add('active');
+
+            backBtn.classList.toggle('hidden', currentStep === 1);
+            nextBtn.classList.toggle('hidden', currentStep === totalSteps);
+            submitBtn.classList.toggle('hidden', currentStep !== totalSteps);
+
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            progressLine.style.width = `${progress}%`;
+
+            indicators.forEach(ind => {
+                const step = parseInt(ind.getAttribute('data-step'));
+                if (step < currentStep) {
+                    ind.classList.remove('bg-surface-container-highest', 'text-on-surface-variant', 'bg-primary', 'text-on-primary');
+                    ind.classList.add('bg-primary', 'text-on-primary');
+                    ind.innerHTML = '<span class="material-symbols-outlined text-md">check</span>';
+                } else if (step === currentStep) {
+                    ind.classList.remove('bg-surface-container-highest', 'text-on-surface-variant', 'bg-primary', 'text-on-primary');
+                    ind.classList.add('bg-primary', 'text-on-primary');
+                    ind.innerHTML = `<span class="font-label-md">${step}</span>`;
+                } else {
+                    ind.classList.remove('bg-primary', 'text-on-primary');
+                    ind.classList.add('bg-surface-container-highest', 'text-on-surface-variant');
+                    ind.innerHTML = `<span class="font-label-md">${step}</span>`;
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateForm();
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateForm();
+            }
+        });
+
+        // Signature pad
+        (function() {
+            var canvas = document.getElementById('sigCanvas');
+            if (!canvas) return;
+            var ctx = canvas.getContext('2d');
+            var drawing = false, lastX = 0, lastY = 0;
+            function getPos(e) {
+                var r = canvas.getBoundingClientRect();
+                var cx = e.touches ? e.touches[0].clientX : e.clientX;
+                var cy = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: (cx - r.left) * (canvas.width / r.width), y: (cy - r.top) * (canvas.height / r.height) };
+            }
+            function start(e) { e.preventDefault(); drawing = true; var p = getPos(e); lastX = p.x; lastY = p.y; ctx.beginPath(); ctx.arc(lastX, lastY, 2, 0, Math.PI * 2); ctx.fillStyle = '#001f5c'; ctx.fill(); }
+            function move(e) { e.preventDefault(); if (!drawing) return; var p = getPos(e); ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(p.x, p.y); ctx.strokeStyle = '#001f5c'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke(); lastX = p.x; lastY = p.y; }
+            function end(e) { e.preventDefault(); drawing = false; ctx.closePath(); }
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', move);
+            canvas.addEventListener('mouseup', end);
+            canvas.addEventListener('mouseleave', end);
+            canvas.addEventListener('touchstart', start, { passive: false });
+            canvas.addEventListener('touchmove', move, { passive: false });
+            canvas.addEventListener('touchend', end, { passive: false });
+        })();
+
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                if (input.parentElement) input.parentElement.classList.add('scale-[1.005]');
+            });
+            input.addEventListener('blur', () => {
+                if (input.parentElement) input.parentElement.classList.remove('scale-[1.005]');
+            });
+        });
+    </script>
+</body></html>
