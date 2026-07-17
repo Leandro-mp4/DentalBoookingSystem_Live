@@ -552,7 +552,7 @@
             <p>Welcome back. Here is the clinic overview for today.</p>
           </div>
           <div class="page-actions">
-            <button class="btn btn-primary btn-sm" onclick="localStorage.removeItem('dentalPatient');window.location.href='dental-chart.html';">➕ New Patient</button>
+            <button class="btn btn-primary btn-sm" onclick="localStorage.removeItem('dentalPatient');document.querySelector('#mainNav a[data-page=&quot;consent&quot;]').click();">➕ New Patient</button>
           </div>
         </div>
 
@@ -784,7 +784,7 @@
           </div>
           <div class="page-actions">
             <button class="btn btn-outline btn-sm">📥 Export CSV</button>
-            <button class="btn btn-primary btn-sm" onclick="localStorage.removeItem('dentalPatient');window.location.href='dental-chart.html';">➕ Add Patient</button>
+            <button class="btn btn-primary btn-sm" onclick="localStorage.removeItem('dentalPatient');document.querySelector('#mainNav a[data-page=&quot;consent&quot;]').click();">➕ Add Patient</button>
           </div>
         </div>
 
