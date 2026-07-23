@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Callejo Dental Clinic — Patient Intake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL,opsz@300..600,0..1,20..40&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#0A2A6B; --primary-dark:#071D4D; --primary-soft:#E8ECFA;
+    --teal:#0EA894; --teal-soft:#DEF5F1; --coral:#D8492F; --coral-soft:#FBE4DE;
+    --surface:#F4F5F9; --card:#FFFFFF; --outline:#E2E5EE; --outline-strong:#C7CCDC;
+    --text:#141B33; --text-muted:#5C637A;
+    --radius-lg:22px; --radius-md:16px;
+    --shadow-card:0 1px 2px rgba(20,27,51,0.04), 0 10px 28px rgba(20,27,51,0.06);
+    --font-head:'Work Sans',sans-serif; --font-body:'Inter',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font-body);background:var(--surface);color:var(--text);font-size:16px;line-height:1.5;min-height:100vh;padding-bottom:40px;-webkit-font-smoothing:antialiased;}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 28;vertical-align:middle;}
+  button{font-family:inherit;cursor:pointer;}
+  input,select,textarea{font-family:inherit;}
+
+  .header{background:linear-gradient(150deg,var(--primary),var(--primary-dark));color:#fff;padding:26px 20px 34px;text-align:center;}
+  .header .mark{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+  .header h1{font-family:var(--font-head);font-size:19px;font-weight:700;}
+  .header p{font-size:13.5px;color:rgba(255,255,255,0.78);margin-top:4px;}
+
+  .wrap{max-width:520px;margin:-18px auto 0;padding:0 16px;}
+  .card{background:var(--card);border:1px solid var(--outline);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:22px 20px;margin-bottom:14px;}
+  .card h2{font-family:var(--font-head);font-size:16.5px;font-weight:700;color:var(--primary);display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+  .card h2 .material-symbols-outlined{font-size:20px;}
+
+  .field{margin-bottom:16px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block;font-size:14px;font-weight:700;margin-bottom:7px;}
+  .input,select.input,textarea.input{width:100%;padding:14px 15px;border-radius:12px;border:1.5px solid var(--outline);background:var(--surface);font-size:16px;color:var(--text);}
+  .input:focus,select.input:focus,textarea.input:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 4px var(--primary-soft);}
+  textarea.input{resize:vertical;min-height:80px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+  .consent-scroll{max-height:220px;overflow-y:auto;border:1.5px solid var(--outline);border-radius:14px;padding:14px 16px;background:var(--surface);margin-bottom:14px;}
+  .consent-scroll h4{font-size:13px;font-weight:800;color:var(--primary);margin:12px 0 4px;}
+  .consent-scroll h4:first-child{margin-top:0;}
+  .consent-scroll p{font-size:12.5px;color:var(--text-muted);line-height:1.55;}
+
+  .consent-agree{display:flex;gap:10px;align-items:flex-start;background:var(--primary-soft);border-radius:14px;padding:14px 16px;margin-bottom:16px;}
+  .consent-agree input{width:20px;height:20px;margin-top:2px;flex-shrink:0;accent-color:var(--primary);}
+  .consent-agree label{font-size:13.5px;font-weight:600;color:var(--text);}
+
+  .sig-wrap{border:1.5px dashed var(--outline-strong);border-radius:14px;background:var(--surface);position:relative;overflow:hidden;}
+  .sig-wrap canvas{display:block;width:100%;height:150px;touch-action:none;background:#fff;}
+  .sig-placeholder{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--text-muted);font-size:13px;pointer-events:none;}
+  .sig-toolbar{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+  .sig-toolbar .hint{font-size:12px;color:var(--text-muted);}
+  .btn-ghost-sm{background:none;border:1.5px solid var(--outline);color:var(--text-muted);padding:8px 12px;border-radius:10px;font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:5px;}
+
+  .chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px;}
+  .chip-btn{padding:14px 10px;border-radius:12px;border:1.5px solid var(--outline);background:#fff;font-size:13.5px;font-weight:700;color:var(--text);text-align:center;}
+  .chip-btn.selected{border-color:var(--primary);background:var(--primary-soft);color:var(--primary);}
+
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:17px;border-radius:16px;font-size:16px;font-weight:700;border:none;background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(10,42,107,0.25);}
+  .btn:active{transform:scale(0.98);}
+  .err{color:var(--coral);font-size:13px;font-weight:700;margin-top:8px;display:none;}
+
+  .success-wrap{max-width:420px;margin:60px auto;text-align:center;padding:0 20px;}
+  .success-wrap .material-symbols-outlined{font-size:64px;color:var(--teal);background:var(--teal-soft);width:104px;height:104px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+  .success-wrap h2{font-family:var(--font-head);font-size:21px;font-weight:700;color:var(--primary);margin-bottom:8px;}
+  .success-wrap p{color:var(--text-muted);font-size:14.5px;}
+  .hidden{display:none !important;}
+</style>
+</head>
+<body>
+
+<div id="formView">
+  <div class="header">
+    <div class="mark"><span class="material-symbols-outlined">dentistry</span></div>
+    <h1>Callejo Dental Clinic</h1>
+    <p>New Patient Intake — please fill this out before your visit</p>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <h2><span class="material-symbols-outlined">gavel</span> Informed Consent</h2>
+      <div class="consent-scroll">
+        <h4>Treatment To Be Done</h4>
+        <p>I consent to any treatment performed by the dentist after the procedure, risks, benefits, and cost have been explained — including x-rays, cleanings, periodontal treatment, fillings, crowns, bridges, extractions, root canals, dentures, local anesthesia, and surgical cases.</p>
+        <h4>Drugs &amp; Medications</h4>
+        <p>Antibiotics, analgesics, and other medications can occasionally cause allergic reactions such as redness, swelling, itching, vomiting, or anaphylactic shock.</p>
+        <h4>Changes In Treatment Plan</h4>
+        <p>During treatment it may be necessary to change or add procedures for conditions found while working — for example, an unplanned root canal — and I accept responsibility for the added cost.</p>
+        <h4>Radiograph</h4>
+        <p>X-rays help form a treatment plan but do not guarantee 100% accuracy; unpredictable complications may still change the plan later.</p>
+        <h4>Removal of Teeth</h4>
+        <p>Alternatives to extraction and their risks have been explained. Removing teeth does not always clear existing infection, and further treatment, pain, swelling, dry socket, or numbness of teeth/lips/tongue may follow.</p>
+        <h4>Crowns, Bridges &amp; Endodontics</h4>
+        <p>Tooth preparation can irritate the nerve; temporary crowns must be kept on and permanent cementation returned to promptly. Root canal treatment has no guarantee of success and a tooth may still need removal despite best efforts.</p>
+        <h4>Periodontal Disease, Fillings &amp; Dentures</h4>
+        <p>Gum disease can lead to tooth loss if untreated. Fillings may be sensitive at first. Dentures can be difficult to adjust to and may require several relines; missed delivery appointments may affect fit.</p>
+        <p style="font-weight:700;color:var(--text);margin-top:12px;">I understand that dentistry is not an exact science and that no dentist can properly guarantee accurate results all the time. I authorize the clinic's dentists and staff to proceed with the dental restorations and treatments explained to me, and I am responsible for payment of dental fees regardless of insurance coverage.</p>
+      </div>
+      <div class="consent-agree">
+        <input type="checkbox" id="consentAgreeCheck">
+        <label for="consentAgreeCheck">I am the patient (or the patient's parent/guardian). I have read and understood the above and give my consent.</label>
+      </div>
+      <div class="field">
+        <label>Patient / Parent / Guardian — Full Name</label>
+        <input class="input" id="signerName" placeholder="Type full legal name">
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>Digital Signature</label>
+        <div class="sig-wrap">
+          <canvas id="sigCanvas"></canvas>
+          <div class="sig-placeholder" id="sigPlaceholder">Sign here with your finger</div>
+        </div>
+        <div class="sig-toolbar">
+          <span class="hint" id="dateHint"></span>
+          <button type="button" class="btn-ghost-sm" onclick="clearSignature()"><span class="material-symbols-outlined" style="font-size:15px;">backspace</span> Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="material-symbols-outlined">badge</span> Your Information</h2>
+      <div class="grid-2">
+        <div class="field"><label>Last Name</label><input class="input" id="lastName"></div>
+        <div class="field"><label>First Name</label><input class="input" id="firstName"></div>
+      </div>
+      <div class="field"><label>Middle Name (optional)</label><input class="input" id="middleName"></div>
+      <div class="grid-2">
+        <div class="field"><label>Birthday</label><input class="input" type="date" id="birthday"></div>
+        <div class="field"><label>Sex</label><select class="input" id="sex"><option value="F">Female</option><option value="M">Male</option></select></div>
+      </div>
+      <div class="field"><label>Cell / Mobile Number</label><input class="input" id="contact" placeholder="0917 234 5678"></div>
+      <div class="field"><label>Email (optional)</label><input class="input" type="email" id="email"></div>
+      <div class="field"><label>Home Address</label><input class="input" id="address" placeholder="Street, Barangay, City"></div>
+      <div class="field"><label>Occupation (optional)</label><input class="input" id="occupation"></div>
+      <div class="field"><label>Reason for Consultation</label><input class="input" id="reason" placeholder="e.g. Toothache, cleaning…"></div>
+      <div class="field" style="margin-bottom:0;background:var(--surface);border-radius:14px;padding:14px 16px;">
+        <label style="margin-bottom:4px;">For Minors — Parent / Guardian Name</label>
+        <input class="input" id="guardian" placeholder="Leave blank if patient is an adult">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="material-symbols-outlined">medical_information</span> Medical History</h2>
+      <div class="field">
+        <label>Allergic to any of the following? (tap all that apply)</label>
+        <div class="chip-grid" id="allergyChips">
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Local Anesthetic</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Penicillin / Antibiotics</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Sulfa Drugs</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Aspirin</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Latex</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Existing conditions (tap all that apply)</label>
+        <div class="chip-grid" id="conditionChips">
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">High Blood Pressure</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Heart Disease</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Diabetes</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Asthma</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Hepatitis / Jaundice</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Bleeding Problems</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">Pregnant</button>
+          <button type="button" class="chip-btn" onclick="toggleChip(this)">None of the above</button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>Current medications (optional)</label>
+        <input class="input" id="meds" placeholder="e.g. Metformin 500mg, Losartan…">
+      </div>
+    </div>
+
+    <button class="btn" onclick="submitForm()"><span class="material-symbols-outlined">check_circle</span> Submit</button>
+    <div class="err" id="errMsg"></div>
+    <div style="height:30px;"></div>
+  </div>
+</div>
+
+<div id="successView" class="success-wrap hidden">
+  <span class="material-symbols-outlined">task_alt</span>
+  <h2>All set!</h2>
+  <p>Thanks — your information has been sent to the front desk. You can hand the device or phone back, or simply put it away. See you shortly!</p>
+</div>
+
+<script>
+/* Read the token that links this submission back to the clinic's waiting-room screen */
+var params = new URLSearchParams(location.search);
+var TOKEN = params.get('t') || '';
+var TODAY_LABEL = new Date().toLocaleDateString('en-US',{month:'short', day:'numeric', year:'numeric'});
+document.getElementById('dateHint').textContent = 'Will be dated ' + TODAY_LABEL;
+
+/* ---- Signature pad ---- */
+var canvas = document.getElementById('sigCanvas'), ctx, drawing = false, hasContent = false;
+function initSig(){
+  var ratio = window.devicePixelRatio || 1;
+  canvas.width = canvas.offsetWidth * ratio;
+  canvas.height = 150 * ratio;
+  ctx = canvas.getContext('2d');
+  ctx.scale(ratio, ratio);
+  ctx.strokeStyle = '#0A2A6B'; ctx.lineWidth = 2.2; ctx.lineCap = 'round';
+  function pos(e){ var r = canvas.getBoundingClientRect(); var t = e.touches ? e.touches[0] : e; return {x: t.clientX - r.left, y: t.clientY - r.top}; }
+  function start(e){ drawing = true; hasContent = true; document.getElementById('sigPlaceholder').style.display='none'; var p = pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault(); }
+  function move(e){ if(!drawing) return; var p = pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); }
+  function end(){ drawing = false; }
+  canvas.onmousedown = start; canvas.onmousemove = move; window.addEventListener('mouseup', end);
+  canvas.ontouchstart = start; canvas.ontouchmove = move; canvas.ontouchend = end;
+}
+window.addEventListener('load', initSig);
+function clearSignature(){ ctx.clearRect(0,0,canvas.width,canvas.height); hasContent = false; document.getElementById('sigPlaceholder').style.display='block'; }
+
+/* ---- Chips ---- */
+function toggleChip(el){ el.classList.toggle('selected'); }
+function collectChips(groupId){
+  return Array.prototype.map.call(document.querySelectorAll('#'+groupId+' .chip-btn.selected'), function(b){ return b.textContent.trim(); });
+}
+
+/* ---- Submit ---- */
+function submitForm(){
+  var err = document.getElementById('errMsg');
+  err.style.display = 'none';
+  if(!document.getElementById('consentAgreeCheck').checked){ return showErr('Please check the consent agreement box.'); }
+  if(!document.getElementById('signerName').value.trim()){ return showErr('Please enter your full name.'); }
+  if(!hasContent){ return showErr('Please sign in the box above.'); }
+  if(!document.getElementById('firstName').value.trim() || !document.getElementById('lastName').value.trim()){ return showErr('First and last name are required.'); }
+
+  var data = {
+    signerName: document.getElementById('signerName').value.trim(),
+    signatureData: canvas.toDataURL('image/png'),
+    date: TODAY_LABEL,
+    lastName: document.getElementById('lastName').value.trim(),
+    firstName: document.getElementById('firstName').value.trim(),
+    middleName: document.getElementById('middleName').value.trim(),
+    birthday: document.getElementById('birthday').value,
+    sex: document.getElementById('sex').value,
+    contact: document.getElementById('contact').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    occupation: document.getElementById('occupation').value.trim(),
+    reason: document.getElementById('reason').value.trim(),
+    guardian: document.getElementById('guardian').value.trim(),
+    medications: document.getElementById('meds').value.trim(),
+    allergies: collectChips('allergyChips'),
+    conditions: collectChips('conditionChips'),
+    submittedAt: Date.now()
+  };
+
+  /* --------------------------------------------------------------------
+     NOTE FOR PRODUCTION: this demo hands the submission back to the
+     clinic-portal tab via localStorage (works when both are open in the
+     same browser — handy for same-device testing or a front-desk tablet
+     paired with a second tab). To sync across two separate physical
+     devices (the clinic's tablet and the patient's own phone), replace
+     this block with a real network call, e.g.:
+       fetch('/api/intake-submissions/' + TOKEN, { method:'POST', body: JSON.stringify(data) })
+     and have the clinic portal poll or subscribe to that same endpoint
+     instead of localStorage.
+  -------------------------------------------------------------------- */
+  if(TOKEN){
+    try{ localStorage.setItem('intake:' + TOKEN, JSON.stringify(data)); }catch(e){}
+  }
+
+  document.getElementById('formView').classList.add('hidden');
+  document.getElementById('successView').classList.remove('hidden');
+}
+function showErr(msg){
+  var err = document.getElementById('errMsg');
+  err.textContent = msg;
+  err.style.display = 'block';
+  err.scrollIntoView({behavior:'smooth', block:'center'});
+}
+</script>
+</body>
+</html>
