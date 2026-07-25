@@ -970,7 +970,7 @@
           .tooth-part{position:absolute;cursor:pointer;stroke:#c4c6d4;stroke-width:1;fill:#ffffff;transition:fill .2s;}
           .tooth-part.solid-blue{fill:#0A2A6B;}
           .tooth-select{width:40px;font-size:10px;text-align:center;font-weight:700;border:1px solid var(--outline);border-radius:8px;overflow:hidden;}
-          .tooth-select select{width:100%;border:0;text-align:center;background:#eceef0;height:26px;font-size:10px;font-weight:700;}
+          .tooth-select select{width:100%;border:0;text-align:center;background:#eceef0;height:26px;font-size:10px;font-weight:700;-webkit-appearance:none;-moz-appearance:none;appearance:none;}
           .tooth-select select:last-child{border-top:1px solid var(--outline);}
           .tooth-num{font-size:11px;font-weight:700;color:var(--text-muted);}
           .arch-label{text-align:center;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--outline-strong);padding:6px 0 4px;}
@@ -1530,11 +1530,11 @@ function selectPayTile(el, groupId){
 function createToothComponent(number){
   return '<div class="flex-col-tooth" style="display:flex;flex-direction:column;align-items:center;gap:4px;">'+
     '<div class="tooth-select">'+
-      '<select title="Condition: check=Present, D=Decayed, M=Missing(caries), MO=Missing(other), Im=Impacted, Sp=Supernumerary, Rf=Root Fragment, Un=Unerupted">'+
-        '<option value=""></option><option>&#10003;</option><option>D</option><option>M</option><option>MO</option><option>Im</option><option>Sp</option><option>Rf</option><option>Un</option>'+
+      '<select title="Condition codes">'+
+        '<option value=""></option><option value="&#10003;">&#10003; – Present</option><option value="D">D – Decayed</option><option value="M">M – Missing (caries)</option><option value="MO">MO – Missing (other)</option><option value="Im">Im – Impacted</option><option value="Sp">Sp – Supernumerary</option><option value="Rf">Rf – Root Fragment</option><option value="Un">Un – Unerupted</option>'+
       '</select>'+
-      '<select title="Restoration: Am=Amalgam, Co=Composite, JC=Jacket Crown, Ab=Abutment, Att=Attachment, P=Pontic, In=Inlay, Imp=Implant, S=Sealants, Rm=Removable Denture">'+
-        '<option value=""></option><option>Am</option><option>Co</option><option>JC</option><option>Ab</option><option>Att</option><option>P</option><option>In</option><option>Imp</option><option>S</option><option>Rm</option>'+
+      '<select title="Restoration codes">'+
+        '<option value=""></option><option value="Am">Am – Amalgam</option><option value="Co">Co – Composite</option><option value="JC">JC – Jacket Crown</option><option value="Ab">Ab – Abutment</option><option value="Att">Att – Attachment</option><option value="P">P – Pontic</option><option value="In">In – Inlay</option><option value="Imp">Imp – Implant</option><option value="S">S – Sealants</option><option value="Rm">Rm – Removable Denture</option>'+
       '</select>'+
     '</div>'+
     '<div class="tooth-circle-container">'+
