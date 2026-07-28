@@ -120,10 +120,6 @@
   }
   .tile:hover{transform:translateY(-3px);box-shadow:var(--shadow-pop);border-color:var(--outline-strong);}
   .tile:active{transform:translateY(0) scale(0.98);}
-  .tile.featured{grid-column:span 1;background:linear-gradient(155deg,var(--primary) 0%,var(--primary-dark) 100%);border-color:transparent;color:#fff;}
-  .tile.featured .tile-icon{background:rgba(255,255,255,0.16);color:#fff;}
-  .tile.featured .tile-label{color:#fff;}
-  .tile.featured .tile-sub{color:rgba(255,255,255,0.72);}
   .tile-icon{
     width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
@@ -343,38 +339,6 @@
   .empty-state{text-align:center;padding:50px 20px;color:var(--text-muted);}
   .empty-state .material-symbols-outlined{font-size:44px;color:var(--outline-strong);margin-bottom:10px;}
 
-  /* ===== Nav menu ===== */
-  .nav-menu{display:flex;align-items:center;gap:2px;background:var(--surface);border:1px solid var(--outline);border-radius:999px;padding:4px;}
-  .nav-item{
-    display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:none;background:none;
-    color:var(--text-muted);font-size:13.5px;font-weight:700;transition:all .15s;white-space:nowrap;
-  }
-  .nav-item .material-symbols-outlined{font-size:19px;}
-  .nav-item:hover{color:var(--primary);}
-  .nav-item.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(10,42,107,0.2);}
-  @media(max-width:900px){ .nav-item .lbl{display:none;} .nav-item{padding:10px;} }
-  @media(max-width:640px){ .nav-menu{display:none;} }
-  .mobile-nav{display:none;position:sticky;bottom:0;z-index:39;background:#fff;border-top:1px solid var(--outline);padding:6px 4px;box-shadow:0 -4px 14px rgba(20,27,51,0.06);}
-  @media(max-width:640px){ .mobile-nav{display:flex;justify-content:space-around;} }
-  .mobile-nav .nav-item{flex-direction:column;gap:2px;font-size:10.5px;padding:8px 6px;flex:1;}
-  .mobile-nav .nav-item .material-symbols-outlined{font-size:22px;}
-
-  .role-pill{display:flex;gap:4px;background:var(--surface);border:1px solid var(--outline);border-radius:999px;padding:3px;}
-  .role-pill button{padding:7px 12px;border-radius:999px;border:none;background:none;font-size:12.5px;font-weight:700;color:var(--text-muted);}
-  .role-pill button.selected{background:var(--primary);color:#fff;}
-
-  /* ===== Legend / info modal ===== */
-  .info-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--outline-strong);background:#fff;color:var(--text-muted);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .info-btn:hover{color:var(--primary);border-color:var(--primary);}
-  .info-btn .material-symbols-outlined{font-size:17px;}
-  .legend-modal-box{background:#fff;border-radius:20px;padding:26px;max-width:640px;width:100%;max-height:82vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-  .legend-modal-box h3{font-family:var(--font-head);font-size:19px;color:var(--primary);margin-bottom:4px;}
-  .legend-modal-box .sub{color:var(--text-muted);font-size:13.5px;margin-bottom:18px;}
-  .legend-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
-  .legend-grid h4{font-size:12.5px;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
-  .legend-grid .row{display:flex;gap:10px;font-size:13.5px;padding:5px 0;border-bottom:1px dashed var(--outline);}
-  .legend-grid .row .code{font-weight:800;color:var(--primary);min-width:34px;flex-shrink:0;}
-
   /* ===== Calendar ===== */
   .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
   .cal-head .cal-title{font-family:var(--font-head);font-size:19px;font-weight:700;color:var(--primary);}
@@ -440,20 +404,8 @@
       <p>Clinic Portal</p>
     </div>
   </div>
-  <nav class="nav-menu">
-    <button class="nav-item" id="navBtn-screen-dashboard" onclick="goHome()"><span class="material-symbols-outlined">home</span><span class="lbl">Home</span></button>
-    <button class="nav-item" id="navBtn-screen-calendar" onclick="openCalendar()"><span class="material-symbols-outlined">calendar_month</span><span class="lbl">Calendar</span></button>
-    <button class="nav-item" id="navBtn-screen-find-patient" onclick="showScreen('screen-find-patient'); renderPatientList(''); setActiveNav('screen-find-patient');"><span class="material-symbols-outlined">person_search</span><span class="lbl">Patients</span></button>
-    <button class="nav-item" id="navBtn-screen-balances" onclick="showScreen('screen-balances'); renderBalanceList(); setActiveNav('screen-balances');"><span class="material-symbols-outlined">receipt_long</span><span class="lbl">Balances</span></button>
-    <button class="nav-item" id="navBtn-screen-new-patient" onclick="startIntake(); setActiveNav('screen-new-patient');"><span class="material-symbols-outlined">person_add</span><span class="lbl">New Patient</span></button>
-  </nav>
   <div class="topbar-right">
-    <span class="role-pill" title="This is a shared portal — either front-desk staff or a dentist can use it.">
-      <button type="button" class="selected" id="roleStaffBtn" onclick="setRole('staff')">Staff</button>
-      <button type="button" id="roleDentistBtn" onclick="setRole('dentist')">Dentist</button>
-    </span>
     <span class="topbar-date" id="topbarDate"></span>
-    <button class="icon-btn" title="Abbreviation &amp; chart legend" onclick="openLegend()"><span class="material-symbols-outlined">menu_book</span></button>
     <button class="logout-btn"><span class="material-symbols-outlined" style="font-size:18px;">logout</span> Log Out</button>
   </div>
 </div>
@@ -471,14 +423,6 @@
     </div>
 
     <div class="tile-grid">
-      <button class="tile featured" onclick="openTreatmentEntry()">
-        <div class="tile-icon"><span class="material-symbols-outlined">dentistry</span></div>
-        <div>
-          <div class="tile-label">Add Treatment Record</div>
-          <div class="tile-sub">Chart, prescribe, and bill a visit</div>
-        </div>
-      </button>
-
       <button class="tile" onclick="showScreen('screen-find-patient'); renderPatientList('');">
         <div class="tile-icon navy"><span class="material-symbols-outlined">person_search</span></div>
         <div>
@@ -495,7 +439,7 @@
         </div>
       </button>
 
-      <button class="tile" onclick="showScreen('screen-balances'); renderBalanceList(); setActiveNav('screen-balances');">
+      <button class="tile" onclick="showScreen('screen-balances'); renderBalanceList();">
         <div class="tile-icon coral"><span class="material-symbols-outlined">receipt_long</span></div>
         <div>
           <div class="tile-label">Unpaid Balances</div>
@@ -504,21 +448,25 @@
         <span class="tile-badge" id="balanceTileBadge" style="display:none;"></span>
       </button>
 
-      <button class="tile" onclick="openCalendar()">
-        <div class="tile-icon amber"><span class="material-symbols-outlined">calendar_month</span></div>
-        <div>
-          <div class="tile-label">Appointments</div>
-          <div class="tile-sub" id="apptTileSub">Loading…</div>
-        </div>
       </button>
     </div>
 
-    <div class="section-card" id="todayApptsCard">
-      <div class="section-title">
-        <span style="display:flex;align-items:center;gap:8px;"><span class="material-symbols-outlined">schedule</span> Today's Appointments</span>
-        <span style="font-size:13px;font-weight:600;color:var(--text-muted);">July 22, 2026</span>
+    <div class="section-card" style="margin-bottom:16px;">
+      <div class="cal-head">
+        <button class="icon-btn" onclick="calShiftMonth(-1)"><span class="material-symbols-outlined">chevron_left</span></button>
+        <div class="cal-title" id="calMonthTitle"></div>
+        <button class="icon-btn" onclick="calShiftMonth(1)"><span class="material-symbols-outlined">chevron_right</span></button>
       </div>
-      <div id="todayApptsList"></div>
+      <div class="cal-grid" id="calDowRow"></div>
+      <div class="cal-grid" id="calGrid" style="margin-top:6px;"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">
+        <span style="display:flex;align-items:center;gap:8px;"><span class="material-symbols-outlined">event</span> <span id="calSelectedDateLabel">Selected Day</span></span>
+        <button class="btn btn-ghost" style="padding:8px 14px;font-size:13px;" onclick="openAddAppt()"><span class="material-symbols-outlined" style="font-size:18px;">add</span> Add</button>
+      </div>
+      <div id="calDayList"></div>
     </div>
   </section>
 
@@ -581,71 +529,60 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- SCREEN: CALENDAR -->
-  <!-- ============================================================ -->
-  <section class="screen" id="screen-calendar">
-    <button class="back-link" onclick="goHome()"><span class="material-symbols-outlined">arrow_back</span> Back to Home</button>
-    <div class="screen-head" style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;">
-      <div>
-        <h2>Appointments Calendar</h2>
-        <p>Tap a date to see or add appointments — usable by front desk or the dentist.</p>
-      </div>
-      <button class="btn btn-primary" onclick="openAddAppt()"><span class="material-symbols-outlined">add</span> Add Appointment</button>
-    </div>
-
-    <div class="section-card" style="margin-bottom:16px;">
-      <div class="cal-head">
-        <button class="icon-btn" onclick="calShiftMonth(-1)"><span class="material-symbols-outlined">chevron_left</span></button>
-        <div class="cal-title" id="calMonthTitle"></div>
-        <button class="icon-btn" onclick="calShiftMonth(1)"><span class="material-symbols-outlined">chevron_right</span></button>
-      </div>
-      <div class="cal-grid" id="calDowRow"></div>
-      <div class="cal-grid" id="calGrid" style="margin-top:6px;"></div>
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">
-        <span style="display:flex;align-items:center;gap:8px;"><span class="material-symbols-outlined">event</span> <span id="calSelectedDateLabel">Selected Day</span></span>
-        <button class="btn btn-ghost" style="padding:8px 14px;font-size:13px;" onclick="openAddAppt()"><span class="material-symbols-outlined" style="font-size:18px;">add</span> Add</button>
-      </div>
-      <div id="calDayList"></div>
-    </div>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- SCREEN: COLLECT PAYMENT -->
+  <!-- SCREEN: COLLECT PAYMENT (with patient history) -->
   <!-- ============================================================ -->
   <section class="screen" id="screen-collect-payment">
     <button class="back-link" onclick="goBackFromPayment()"><span class="material-symbols-outlined">arrow_back</span> Back</button>
     <div class="screen-head">
-      <h2>Collect Payment</h2>
+      <h2>Payment &amp; History</h2>
       <p id="collectPatientLine"></p>
     </div>
 
-    <div class="section-card" style="max-width:520px;">
-      <div style="text-align:center;padding:10px 0 22px;border-bottom:1px solid var(--outline);margin-bottom:22px;">
-        <div style="font-size:13.5px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Balance Due</div>
-        <div style="font-family:var(--font-head);font-size:38px;font-weight:800;color:var(--coral);" id="collectBalanceAmount">₱0.00</div>
-        <div style="font-size:13.5px;color:var(--text-muted);margin-top:4px;" id="collectBalanceNote"></div>
-      </div>
+    <div class="np-grid-2" style="align-items:start;gap:20px;">
+      <div>
+        <div class="section-card" style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="avatar" id="collectAvatar" style="background:var(--primary);width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:700;font-size:19px;color:#fff;flex-shrink:0;"></div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:18px;font-weight:700;" id="collectPatientName"></div>
+              <div style="font-size:13.5px;color:var(--text-muted);" id="collectPatientMeta"></div>
+            </div>
+          </div>
+        </div>
 
-      <div class="field">
-        <label>Amount Received Today</label>
-        <input class="input" type="number" id="collectAmountInput" placeholder="0.00" oninput="updateCollectRemaining()">
-        <div class="hint" id="collectRemainingHint"></div>
-      </div>
-
-      <div class="field">
-        <label>Payment Method</label>
-        <div class="pay-grid" id="collectPayMethods">
-          <button type="button" class="pay-tile" data-method="GCash" onclick="selectPayTile(this,'collectPayMethods')"><span class="material-symbols-outlined">smartphone</span><span class="label">GCash</span></button>
-          <button type="button" class="pay-tile" data-method="Bank Transfer" onclick="selectPayTile(this,'collectPayMethods')"><span class="material-symbols-outlined">account_balance</span><span class="label">Bank Transfer</span></button>
-          <button type="button" class="pay-tile" data-method="Cash" onclick="selectPayTile(this,'collectPayMethods')"><span class="material-symbols-outlined">payments</span><span class="label">Cash</span></button>
-          <button type="button" class="pay-tile" data-method="Credit Card" onclick="selectPayTile(this,'collectPayMethods')"><span class="material-symbols-outlined">credit_card</span><span class="label">Credit Card</span></button>
+        <div class="section-card">
+          <div class="section-title"><span style="display:flex;align-items:center;gap:8px;"><span class="material-symbols-outlined">history</span> Payment History</span></div>
+          <div id="collectHistoryList"></div>
         </div>
       </div>
 
-      <button class="btn btn-teal btn-lg" onclick="submitCollectPayment()"><span class="material-symbols-outlined">check_circle</span> Save Payment</button>
+      <div>
+        <div class="section-card">
+          <div style="text-align:center;padding:10px 0 22px;border-bottom:1px solid var(--outline);margin-bottom:22px;">
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Balance Due</div>
+            <div style="font-family:var(--font-head);font-size:38px;font-weight:800;color:var(--coral);" id="collectBalanceAmount">₱0.00</div>
+            <div style="font-size:13.5px;color:var(--text-muted);margin-top:4px;" id="collectBalanceNote"></div>
+          </div>
+
+          <div class="field">
+            <label>Amount Received Today</label>
+            <input class="input" type="number" id="collectAmountInput" placeholder="0.00" oninput="updateCollectRemaining()">
+            <div class="hint" id="collectRemainingHint"></div>
+          </div>
+
+          <div class="field">
+            <label>Payment Method</label>
+            <div class="pay-grid" id="collectPayMethods">
+              <button type="button" class="pay-tile" data-method="GCash" onclick="selectPayTile(this,'collectPayMethods')"><span class="material-symbols-outlined">smartphone</span><span class="label">GCash</span></button>
+              <button type="button" class="pay-tile" data-method="Bank Transfer" onclick="selectPayTile(this,'collectPayMethods')"><span class="material-symbols-outlined">account_balance</span><span class="label">Bank Transfer</span></button>
+              <button type="button" class="pay-tile" data-method="Cash" onclick="selectPayTile(this,'collectPayMethods')"><span class="material-symbols-outlined">payments</span><span class="label">Cash</span></button>
+              <button type="button" class="pay-tile" data-method="Credit Card" onclick="selectPayTile(this,'collectPayMethods')"><span class="material-symbols-outlined">credit_card</span><span class="label">Credit Card</span></button>
+            </div>
+          </div>
+
+          <button class="btn btn-teal btn-lg" onclick="submitCollectPayment()"><span class="material-symbols-outlined">check_circle</span> Save Payment</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -670,7 +607,6 @@
       <div class="section-card" style="max-width:720px;margin:0 auto;">
         <div class="section-title">
           <span style="display:flex;align-items:center;gap:8px;"><span class="material-symbols-outlined">gavel</span> Informed Consent</span>
-          <button type="button" class="info-btn" title="What do the terms below mean?" onclick="openLegend()"><span class="material-symbols-outlined">help</span></button>
         </div>
 
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;">
@@ -817,7 +753,6 @@
           <div>
             <div class="section-title" style="margin-bottom:2px;">
               <span style="display:flex;align-items:center;gap:8px;"><span class="material-symbols-outlined">dentistry</span> Preliminary Examination</span>
-              <button type="button" class="info-btn" title="Chart abbreviations" onclick="openLegend()"><span class="material-symbols-outlined">help</span></button>
             </div>
             <p style="font-size:13.5px;color:var(--text-muted);">First-visit intra-oral check. Tap a tooth to flag it; use the dropdowns for condition &amp; restoration codes.</p>
           </div>
@@ -1152,56 +1087,6 @@
   </div>
 </div>
 
-<!-- Abbreviations / chart legend modal -->
-<div class="modal-overlay" id="legendModal">
-  <div class="legend-modal-box">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-      <div>
-        <h3>Chart &amp; Form Abbreviations</h3>
-        <div class="sub">Quick reference for the codes used on the dental chart and forms.</div>
-      </div>
-      <button class="icon-btn" onclick="document.getElementById('legendModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
-    </div>
-    <div class="legend-grid">
-      <div>
-        <h4>Condition</h4>
-        <div class="row"><span class="code">✓</span><span>Present Teeth</span></div>
-        <div class="row"><span class="code">D</span><span>Decayed — caries indicated for filling</span></div>
-        <div class="row"><span class="code">M</span><span>Missing due to caries</span></div>
-        <div class="row"><span class="code">MO</span><span>Missing due to other causes</span></div>
-        <div class="row"><span class="code">Im</span><span>Impacted tooth</span></div>
-        <div class="row"><span class="code">Sp</span><span>Supernumerary tooth</span></div>
-        <div class="row"><span class="code">Rf</span><span>Root fragment</span></div>
-        <div class="row"><span class="code">Un</span><span>Unerupted</span></div>
-      </div>
-      <div>
-        <h4>Restoration &amp; Prosthetics</h4>
-        <div class="row"><span class="code">Am</span><span>Amalgam filling</span></div>
-        <div class="row"><span class="code">Co</span><span>Composite filling</span></div>
-        <div class="row"><span class="code">JC</span><span>Jacket crown</span></div>
-        <div class="row"><span class="code">Ab</span><span>Abutment</span></div>
-        <div class="row"><span class="code">Att</span><span>Attachment</span></div>
-        <div class="row"><span class="code">P</span><span>Pontic</span></div>
-        <div class="row"><span class="code">In</span><span>Inlay</span></div>
-        <div class="row"><span class="code">Imp</span><span>Implant</span></div>
-        <div class="row"><span class="code">S</span><span>Sealants</span></div>
-        <div class="row"><span class="code">Rm</span><span>Removable denture</span></div>
-      </div>
-      <div>
-        <h4>Surgery &amp; X-Ray</h4>
-        <div class="row"><span class="code">X</span><span>Extraction due to caries</span></div>
-        <div class="row"><span class="code">XO</span><span>Extraction due to other causes</span></div>
-      </div>
-      <div>
-        <h4>Other Terms</h4>
-        <div class="row"><span class="code">TMD</span><span>Temporomandibular disorder</span></div>
-        <div class="row"><span class="code">Rx</span><span>Prescription</span></div>
-        <div class="row"><span class="code">55–85 / 11–48</span><span>FDI tooth numbering — 5x/6x/7x/8x = primary teeth, 1x–4x = permanent teeth</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- View consent modal -->
 <div class="modal-overlay" id="consentViewModal">
   <div class="modal-box" style="max-width:440px;">
@@ -1317,29 +1202,15 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
-  setActiveNav(id);
-}
-function setActiveNav(id){
-  document.querySelectorAll('.nav-item').forEach(function(b){ b.classList.remove('active'); });
-  var btn = document.getElementById('navBtn-'+id);
-  if(btn) btn.classList.add('active');
-  else if(id==='screen-patient-profile' || id==='screen-collect-payment') { var b=document.getElementById('navBtn-screen-find-patient'); if(b) b.classList.add('active'); }
-  else if(id==='screen-wizard' || id==='screen-success') { var b2=document.getElementById('navBtn-screen-dashboard'); if(b2) b2.classList.add('active'); }
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 function goHome(skipConfirm){
   document.getElementById('leaveModal').classList.remove('open');
   stopQrPolling();
   showScreen('screen-dashboard');
   renderDashboardSummaries();
+  renderCalendar();
 }
-function setRole(role){
-  var staffBtn = document.getElementById('roleStaffBtn'), dentistBtn = document.getElementById('roleDentistBtn');
-  staffBtn.classList.toggle('selected', role==='staff');
-  dentistBtn.classList.toggle('selected', role==='dentist');
-  var h = document.getElementById('greetingHeading');
-  if(h) h.textContent = role==='dentist' ? 'Good morning, Doctor' : 'Good morning';
-}
-
 function showToast(text, icon){
   var t = document.getElementById('toast');
   document.getElementById('toastText').textContent = text;
@@ -1366,21 +1237,6 @@ function renderDashboardSummaries(){
     badge.style.display = 'none';
     sub.textContent = 'All accounts settled';
   }
-  var today = todaysAppointments();
-  document.getElementById('apptTileSub').textContent = today.length + ' scheduled today';
-
-  var list = document.getElementById('todayApptsList');
-  if(today.length === 0){
-    list.innerHTML = '<div class="empty-state" style="padding:26px;"><span class="material-symbols-outlined">event_available</span><p>Nothing on the books for today.</p></div>';
-    return;
-  }
-  list.innerHTML = today.map(function(a){
-    return '<div class="appt-row" style="cursor:pointer;" onclick="'+(a.patientId ? "openPatientProfile('"+a.patientId+"')" : "showToast('Walk-in — not yet registered','info')")+'">'+
-      '<div class="appt-time">'+a.time+'</div>'+
-      '<div class="appt-info"><div class="name">'+a.name+'</div><div class="note">'+a.note+'</div></div>'+
-      '<span class="material-symbols-outlined chev">chevron_right</span>'+
-    '</div>';
-  }).join('');
 }
 
 /* ============================================================
@@ -1482,6 +1338,31 @@ function openCollectPayment(id, returnScreen){
   document.getElementById('collectAmountInput').value = '';
   document.getElementById('collectRemainingHint').textContent = '';
   document.querySelectorAll('#collectPayMethods .pay-tile').forEach(function(t){ t.classList.remove('selected'); });
+
+  var avatarEl = document.getElementById('collectAvatar');
+  avatarEl.textContent = initials(p.name);
+  avatarEl.style.background = colorFor(p.name);
+  document.getElementById('collectPatientName').textContent = p.name;
+  document.getElementById('collectPatientMeta').textContent = p.id + ' · ' + p.age + ' yrs, ' + (p.sex==='F'?'Female':'Male') + ' · ' + p.contact;
+
+  var histEl = document.getElementById('collectHistoryList');
+  if(p.history.length === 0){
+    histEl.innerHTML = '<div class="empty-state" style="padding:24px;"><span class="material-symbols-outlined">receipt_long</span><p>No payment records yet.</p></div>';
+  } else {
+    histEl.innerHTML = p.history.map(function(h){
+      var pillClass = h.status==='paid' ? 'pill-paid' : (h.status==='partial' ? 'pill-partial' : 'pill-unpaid');
+      var pillText = h.status==='paid' ? 'Paid in Full' : (h.status==='partial' ? 'Partial Payment' : 'Unpaid');
+      return '<div class="appt-row" style="align-items:flex-start;">'+
+        '<div class="appt-time" style="min-width:100px;">'+h.date+'</div>'+
+        '<div class="appt-info">'+
+          '<div class="name">'+h.procedure+'</div>'+
+          '<div class="note">'+h.dentist+' · Tooth '+h.teeth+' · Charged '+peso(h.amount)+' · Paid '+peso(h.paid)+'</div>'+
+        '</div>'+
+        '<span class="pill '+pillClass+'">'+pillText+'</span>'+
+      '</div>';
+    }).join('');
+  }
+
   showScreen('screen-collect-payment');
 }
 
@@ -1878,11 +1759,6 @@ function formatDateLabel(iso){
 }
 
 /* ============================================================
-   ABBREVIATION LEGEND
-   ============================================================ */
-function openLegend(){ document.getElementById('legendModal').classList.add('open'); }
-
-/* ============================================================
    GENERIC MULTI-SELECT CHIPS (used in intake forms)
    ============================================================ */
 function toggleChip(el){ el.classList.toggle('selected'); }
@@ -2228,12 +2104,6 @@ var calSelectedDate = TODAY_ISO;
 var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 var DOW_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-function openCalendar(){
-  calViewYear = 2026; calViewMonth = 6;
-  calSelectedDate = TODAY_ISO;
-  renderCalendar();
-  showScreen('screen-calendar');
-}
 function calShiftMonth(delta){
   calViewMonth += delta;
   if(calViewMonth < 0){ calViewMonth = 11; calViewYear--; }
@@ -2338,7 +2208,7 @@ function submitAddAppt(){
   });
   closeAddAppt();
   calSelectedDate = date;
-  if(document.getElementById('screen-calendar').classList.contains('active')){ renderCalendar(); }
+  renderCalendar();
   renderDashboardSummaries();
   showToast('Appointment added for ' + p.name, 'event_available');
 }
@@ -2349,7 +2219,7 @@ function submitAddAppt(){
 (function(){
   document.getElementById('topbarDate').textContent = 'Wed, Jul 22, 2026';
   renderDashboardSummaries();
-  setActiveNav('screen-dashboard');
+  renderCalendar();
 })();
 </script>
 </body>
