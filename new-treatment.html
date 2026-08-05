@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Treatment — Callejo Dental Clinic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL,opsz@300..600,0..1,20..40&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#0A2A6B; --primary-dark:#071D4D; --primary-soft:#E8ECFA;
+    --teal:#0EA894; --teal-soft:#DEF5F1;
+    --amber:#C97A1D; --amber-soft:#FBEBD3;
+    --coral:#D8492F; --coral-soft:#FBE4DE;
+    --surface:#F4F5F9; --card:#FFFFFF; --outline:#E2E5EE; --outline-strong:#C7CCDC;
+    --text:#141B33; --text-muted:#5C637A;
+    --radius-lg:22px; --radius-md:16px; --radius-sm:10px;
+    --shadow-card:0 1px 2px rgba(20,27,51,0.04), 0 10px 28px rgba(20,27,51,0.06);
+    --shadow-pop:0 8px 20px rgba(20,27,51,0.10), 0 2px 6px rgba(20,27,51,0.06);
+    --font-head:'Work Sans',sans-serif; --font-body:'Inter',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font-body);background:var(--surface);color:var(--text);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;padding-bottom:40px;}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 28;vertical-align:middle;}
+  button{font-family:inherit;cursor:pointer;} input,select,textarea{font-family:inherit;}
+  ::-webkit-scrollbar{width:8px;height:8px;} ::-webkit-scrollbar-thumb{background:var(--outline-strong);border-radius:10px;}
+
+  .topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--outline);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(150deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:var(--shadow-card);}
+  .brand-text h1{font-family:var(--font-head);font-size:17px;font-weight:700;color:var(--primary);letter-spacing:-0.01em;}
+  .brand-text p{font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;}
+  .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-weight:700;font-size:14.5px;background:none;border:none;padding:8px 0;}
+  .back-link:hover{color:var(--primary);}
+
+  .page{max-width:1180px;margin:0 auto;padding:24px 24px 60px;}
+  @media(max-width:640px){.page{padding:18px 16px 60px;}.topbar{padding:12px 16px;}}
+
+  .ctx-bar{background:var(--card);border:1px solid var(--outline);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:16px 20px;display:flex;align-items:center;gap:16px;margin:16px 0 22px;flex-wrap:wrap;}
+  .avatar{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:700;font-size:18px;color:#fff;flex-shrink:0;background:var(--primary);}
+  .ctx-name{font-family:var(--font-head);font-size:17px;font-weight:700;}
+  .ctx-meta{font-size:13.5px;color:var(--text-muted);}
+  .ctx-status{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .draft-pill{display:inline-flex;align-items:center;gap:6px;background:var(--amber-soft);color:var(--amber);font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:999px;}
+
+  .wizard-rail{display:flex;overflow-x:auto;gap:6px;padding-bottom:4px;margin-bottom:24px;scrollbar-width:thin;}
+  .rail-step{display:flex;align-items:center;gap:9px;padding:10px 16px 10px 10px;border-radius:999px;border:1.5px solid var(--outline);background:#fff;flex-shrink:0;transition:all .15s;cursor:pointer;}
+  .rail-step .num{width:26px;height:26px;border-radius:50%;background:var(--surface);color:var(--text-muted);font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rail-step .lbl{font-size:13px;font-weight:700;color:var(--text-muted);white-space:nowrap;}
+  .rail-step.active{border-color:var(--primary);background:var(--primary-soft);}
+  .rail-step.active .num{background:var(--primary);color:#fff;} .rail-step.active .lbl{color:var(--primary);}
+  .rail-step.done .num{background:var(--teal);color:#fff;} .rail-step.done .lbl{color:var(--teal);}
+
+  .wizard-layout{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start;}
+  @media(max-width:980px){.wizard-layout{grid-template-columns:1fr;}}
+  .summary-col{position:sticky;top:88px;}
+  @media(max-width:980px){.summary-col{position:static;}}
+
+  .wpanel{display:none;animation:fadeUp .22s ease;} .wpanel.active{display:block;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .section-card{background:var(--card);border:1px solid var(--outline);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:22px;}
+  .section-card + .section-card{margin-top:16px;}
+  .section-title{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-size:16px;font-weight:700;color:var(--primary);margin-bottom:6px;}
+  .section-title .material-symbols-outlined{color:var(--primary);}
+  .section-title .count-badge{margin-left:auto;background:var(--primary);color:#fff;font-size:12.5px;font-weight:800;padding:4px 12px;border-radius:999px;}
+  .section-sub{font-size:13.5px;color:var(--text-muted);margin-bottom:18px;}
+  .divider{border-top:1px solid var(--outline);margin:20px 0;padding-top:2px;}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border-radius:14px;font-size:15px;font-weight:700;border:none;transition:all .15s;white-space:nowrap;}
+  .btn:active{transform:scale(0.97);}
+  .btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(10,42,107,0.25);} .btn-primary:hover{background:var(--primary-dark);}
+  .btn-teal{background:var(--teal);color:#fff;box-shadow:0 4px 12px rgba(14,168,148,0.25);} .btn-teal:hover{background:#0c9484;}
+  .btn-outline{background:#fff;color:var(--primary);border:1.5px solid var(--outline-strong);} .btn-outline:hover{background:var(--primary-soft);border-color:var(--primary-soft);}
+  .btn-ghost{background:none;color:var(--text-muted);border:1.5px solid var(--outline);} .btn-ghost:hover{background:var(--surface);}
+  .btn-block{width:100%;} .btn:disabled{opacity:0.45;cursor:not-allowed;}
+
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;}
+  .field .hint{font-size:12.5px;color:var(--text-muted);font-weight:500;margin-top:6px;}
+  .input, select.input, textarea.input{width:100%;padding:13px 15px;border-radius:12px;border:1.5px solid var(--outline);background:var(--surface);font-size:15.5px;color:var(--text);transition:border-color .15s, background .15s;}
+  .input:focus, select.input:focus, textarea.input:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 4px var(--primary-soft);}
+  textarea.input{resize:vertical;min-height:80px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;} .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  @media(max-width:640px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+  .chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+  .chip-btn{padding:15px 14px;border-radius:14px;border:1.5px solid var(--outline);background:#fff;font-size:14px;font-weight:700;color:var(--text);text-align:center;transition:all .15s;}
+  .chip-btn:hover{border-color:var(--primary);} .chip-btn.selected{border-color:var(--primary);background:var(--primary-soft);color:var(--primary);}
+
+  .area-type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px;}
+  @media(max-width:760px){.area-type-grid{grid-template-columns:repeat(2,1fr);}}
+  .area-tile{padding:16px 10px;border-radius:14px;border:1.5px solid var(--outline);background:#fff;display:flex;flex-direction:column;align-items:center;gap:8px;transition:all .15s;text-align:center;}
+  .area-tile .material-symbols-outlined{font-size:24px;color:var(--text-muted);}
+  .area-tile span.label{font-size:12.5px;font-weight:700;color:var(--text);}
+  .area-tile:hover{border-color:var(--primary);}
+  .area-tile.selected{border-color:var(--primary);background:var(--primary-soft);}
+  .area-tile.selected .material-symbols-outlined, .area-tile.selected span.label{color:var(--primary);}
+
+  .seg{display:inline-flex;border:1.5px solid var(--outline);border-radius:14px;padding:4px;background:var(--surface);}
+  .seg button{padding:10px 18px;border:none;background:none;border-radius:11px;font-weight:700;font-size:13.5px;color:var(--text-muted);}
+  .seg button.selected{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(10,42,107,0.2);}
+
+  .tooth-circle-container{width:36px;height:36px;position:relative;}
+  .tooth-part{position:absolute;cursor:pointer;stroke:#c4c6d4;stroke-width:1;fill:#ffffff;transition:fill .2s;}
+  .tooth-part.solid-blue{fill:#0A2A6B;}
+  .tooth-num{font-size:10.5px;font-weight:700;color:var(--text-muted);}
+  .arch-label{text-align:center;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--outline-strong);padding:8px 0 5px;}
+  .quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:480px;margin:0 auto;}
+  .quad-tile{padding:26px 16px;border-radius:16px;border:1.5px solid var(--outline);background:#fff;text-align:center;font-weight:700;font-size:14px;transition:all .15s;}
+  .quad-tile:hover{border-color:var(--primary);} .quad-tile.selected{border-color:var(--primary);background:var(--primary-soft);color:var(--primary);}
+
+  .selection-summary{margin-top:18px;padding:12px 16px;background:var(--teal-soft);border-radius:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .selection-summary .material-symbols-outlined{color:var(--teal);} .selection-summary .txt{font-size:13.5px;font-weight:700;color:var(--teal);flex:1;}
+  .selection-summary.empty{background:var(--surface);}
+  .selection-summary.empty .material-symbols-outlined,.selection-summary.empty .txt{color:var(--text-muted);}
+
+  .search-wrap{position:relative;margin-bottom:16px;}
+  .search-wrap .material-symbols-outlined{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-muted);}
+  .search-wrap .input{padding-left:48px;}
+  .proc-list{display:flex;flex-direction:column;gap:8px;}
+  .proc-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;border:1.5px solid var(--outline);background:#fff;text-align:left;transition:all .15s;}
+  .proc-row:hover{border-color:var(--primary);} .proc-row.selected{border-color:var(--primary);background:var(--primary-soft);}
+  .proc-icon{width:42px;height:42px;border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;}
+  .proc-row.selected .proc-icon{background:#fff;}
+  .proc-name{font-weight:700;font-size:14.5px;} .proc-fee{font-size:12.5px;color:var(--text-muted);}
+  .proc-match{margin-left:auto;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;background:var(--teal-soft);color:var(--teal);padding:5px 10px;border-radius:999px;flex-shrink:0;}
+  .proc-check{margin-left:auto;color:var(--primary);flex-shrink:0;display:none;} .proc-row.selected .proc-check{display:block;} .proc-row.selected .proc-match{display:none;}
+
+  .dyn-empty{text-align:center;padding:36px 20px;color:var(--text-muted);}
+  .dyn-empty .material-symbols-outlined{font-size:36px;color:var(--outline-strong);margin-bottom:10px;}
+  .surface-grid{display:flex;gap:10px;flex-wrap:wrap;}
+  .surface-btn{width:52px;height:52px;border-radius:14px;border:1.5px solid var(--outline);background:#fff;font-weight:800;font-size:14px;color:var(--text-muted);}
+  .surface-btn.selected{border-color:var(--coral);background:var(--coral-soft);color:var(--coral);}
+  .rating-row{display:flex;gap:8px;}
+  .rating-dot{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--outline);background:#fff;font-weight:700;font-size:13px;color:var(--text-muted);}
+  .rating-dot.selected{border-color:var(--amber);background:var(--amber-soft);color:var(--amber);}
+
+  /* ===== Added procedures list ===== */
+  .added-proc-card{display:flex;gap:14px;align-items:flex-start;padding:14px;border:1.5px solid var(--outline);border-radius:16px;background:var(--surface);margin-bottom:10px;}
+  .added-proc-card .idx{width:30px;height:30px;border-radius:9px;background:var(--primary);color:#fff;font-family:var(--font-head);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .added-proc-card .body{flex:1;min-width:0;}
+  .added-proc-card .name{font-weight:700;font-size:15px;}
+  .added-proc-card .meta{font-size:13px;color:var(--text-muted);margin-top:2px;}
+  .added-proc-card .detail-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;}
+  .added-proc-card .detail-chip{font-size:11.5px;font-weight:600;background:#fff;border:1px solid var(--outline);color:var(--text-muted);padding:4px 10px;border-radius:999px;}
+  .added-proc-card .fee{font-family:var(--font-head);font-weight:800;color:var(--primary);font-size:15px;flex-shrink:0;}
+  .added-proc-card .remove-btn{width:34px;height:34px;border-radius:10px;border:none;background:var(--coral-soft);color:var(--coral);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .added-proc-empty{text-align:center;padding:26px 16px;color:var(--text-muted);font-size:13.5px;background:var(--surface);border-radius:14px;border:1.5px dashed var(--outline-strong);}
+
+  .attach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  @media(max-width:640px){.attach-grid{grid-template-columns:repeat(2,1fr);}}
+  .attach-tile{padding:18px 10px;border-radius:14px;border:1.5px dashed var(--outline-strong);background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--text-muted);}
+  .attach-tile .material-symbols-outlined{font-size:24px;color:var(--primary);}
+  .attach-tile:hover{border-color:var(--primary);background:var(--primary-soft);color:var(--primary);} .attach-tile:hover .material-symbols-outlined{color:var(--primary);}
+
+  .cost-table{width:100%;border-collapse:collapse;}
+  .cost-table th{text-align:left;font-size:11.5px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;padding:0 6px 10px;}
+  .cost-table td{padding:10px 6px;border-top:1px solid var(--outline);font-size:14.5px;vertical-align:middle;}
+  .cost-table input.qty{width:52px;text-align:center;padding:8px;border-radius:8px;border:1.5px solid var(--outline);}
+  .cost-table input.price{width:96px;text-align:right;padding:8px;border-radius:8px;border:1.5px solid var(--outline);}
+  .cost-table .src-tag{font-size:10.5px;font-weight:800;text-transform:uppercase;color:var(--text-muted);}
+  .bill-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--outline);font-size:14.5px;}
+  .bill-row:last-child{border-bottom:none;} .bill-row .amt{font-weight:700;}
+  .bill-total{display:flex;justify-content:space-between;align-items:center;padding-top:14px;font-family:var(--font-head);font-size:20px;font-weight:800;color:var(--primary);}
+  .pay-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;} @media(max-width:640px){.pay-grid{grid-template-columns:repeat(2,1fr);}}
+  .pay-tile{padding:18px 10px;border-radius:16px;border:1.5px solid var(--outline);background:#fff;display:flex;flex-direction:column;align-items:center;gap:9px;transition:all .15s;}
+  .pay-tile .material-symbols-outlined{font-size:26px;color:var(--text-muted);} .pay-tile span.label{font-size:12.5px;font-weight:700;color:var(--text);}
+  .pay-tile:hover{border-color:var(--primary);}
+  .pay-tile.selected{border-color:var(--teal);background:var(--teal-soft);}
+  .pay-tile.selected .material-symbols-outlined, .pay-tile.selected span.label{color:var(--teal);}
+
+  .rx-card{border:1.5px solid var(--outline);border-radius:14px;padding:16px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;background:var(--surface);}
+  .rx-card .rx-body{flex:1;}
+  .rx-remove{width:36px;height:36px;border-radius:10px;border:none;background:var(--coral-soft);color:var(--coral);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .empty-state{text-align:center;padding:34px 20px;color:var(--text-muted);} .empty-state .material-symbols-outlined{font-size:36px;color:var(--outline-strong);margin-bottom:8px;}
+
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:4px 0;}
+  .switch{position:relative;width:46px;height:26px;flex-shrink:0;} .switch input{opacity:0;width:0;height:0;}
+  .switch .track{position:absolute;inset:0;background:var(--outline-strong);border-radius:999px;transition:.2s;cursor:pointer;}
+  .switch .track::before{content:'';position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+  .switch input:checked + .track{background:var(--teal);} .switch input:checked + .track::before{transform:translateX(20px);}
+
+  .summary-card{background:linear-gradient(150deg,var(--primary),var(--primary-dark));border-radius:var(--radius-lg);padding:22px;color:#fff;box-shadow:var(--shadow-pop);}
+  .summary-card h4{font-family:var(--font-head);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;opacity:0.75;margin-bottom:16px;}
+  .summary-row{display:flex;flex-direction:column;gap:2px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.14);} .summary-row:last-child{border-bottom:none;}
+  .summary-row .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;opacity:0.6;} .summary-row .v{font-size:15px;font-weight:700;}
+  .summary-proc-list{display:flex;flex-direction:column;gap:3px;margin-top:2px;}
+  .summary-proc-list span{font-size:13.5px;font-weight:600;}
+  .summary-status{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;background:rgba(255,255,255,0.14);padding:5px 12px;border-radius:999px;width:fit-content;}
+
+  .wizard-actions{position:sticky;bottom:0;background:rgba(244,245,249,0.95);backdrop-filter:blur(8px);padding:14px 0 4px;margin-top:24px;display:flex;gap:10px;border-top:1px solid var(--outline);flex-wrap:wrap;}
+  .wizard-actions .spacer{flex:1;}
+
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:14px 24px;border-radius:14px;font-weight:600;font-size:14.5px;box-shadow:0 10px 30px rgba(0,0,0,0.25);opacity:0;pointer-events:none;transition:all .25s;z-index:100;display:flex;align-items:center;gap:10px;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);} .toast .material-symbols-outlined{color:var(--teal);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark"><span class="material-symbols-outlined">dentistry</span></div>
+    <div class="brand-text"><h1>Callejo Dental Clinic</h1><p>New Treatment</p></div>
+  </div>
+  <button class="back-link" onclick="showToast('Would return to patient record (demo)','arrow_back')"><span class="material-symbols-outlined">arrow_back</span> Cancel &amp; Return</button>
+</div>
+
+<div class="page">
+
+  <div class="ctx-bar">
+    <div class="avatar" id="ctxAvatar">RV</div>
+    <div>
+      <div class="ctx-name">Rosa Villanueva</div>
+      <div class="ctx-meta">P-0001 · 52 yrs, Female · Last visit Jul 14, 2026</div>
+    </div>
+    <div class="ctx-status"><span class="draft-pill"><span class="material-symbols-outlined" style="font-size:15px;">edit_note</span> Draft in progress</span></div>
+  </div>
+
+  <div class="wizard-rail" id="wizardRail"></div>
+
+  <div class="wizard-layout">
+    <div>
+
+      <!-- STEP 1: PROCEDURES (repeatable: area + procedure + details, add multiple) -->
+      <div class="wpanel active" id="panel-1">
+
+        <div class="section-card" style="margin-bottom:16px;">
+          <div class="section-title">
+            <span class="material-symbols-outlined">checklist</span> Procedures for This Visit
+            <span class="count-badge" id="procCountBadge">0</span>
+          </div>
+          <div class="section-sub">Everything added below will appear on this visit's clinical record and bill.</div>
+          <div id="addedProceduresList"></div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title"><span class="material-symbols-outlined">add_circle</span> Add a Procedure</div>
+          <div class="section-sub">Pick where the work is happening, then what's being done, then fill in the details.</div>
+
+          <div style="font-size:12.5px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">1 · Tooth / Treatment Area</div>
+          <div class="area-type-grid" id="areaTypeGrid">
+            <button type="button" class="area-tile" data-area="tooth" onclick="setAreaType('tooth')"><span class="material-symbols-outlined">dentistry</span><span class="label">Tooth</span></button>
+            <button type="button" class="area-tile" data-area="quadrant" onclick="setAreaType('quadrant')"><span class="material-symbols-outlined">grid_view</span><span class="label">Quadrant</span></button>
+            <button type="button" class="area-tile" data-area="upperArch" onclick="setAreaType('upperArch')"><span class="material-symbols-outlined">north</span><span class="label">Upper Arch</span></button>
+            <button type="button" class="area-tile" data-area="lowerArch" onclick="setAreaType('lowerArch')"><span class="material-symbols-outlined">south</span><span class="label">Lower Arch</span></button>
+            <button type="button" class="area-tile" data-area="wholeMouth" onclick="setAreaType('wholeMouth')"><span class="material-symbols-outlined">face</span><span class="label">Whole Mouth</span></button>
+            <button type="button" class="area-tile" data-area="tmj" onclick="setAreaType('tmj')"><span class="material-symbols-outlined">joint</span><span class="label">TMJ</span></button>
+            <button type="button" class="area-tile" data-area="none" onclick="setAreaType('none')"><span class="material-symbols-outlined">chat</span><span class="label">Consultation Only</span></button>
+          </div>
+
+          <div id="areaBody-tooth" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+              <span style="font-size:13px;font-weight:700;color:var(--text-muted);">Tap teeth on the chart below</span>
+              <div class="seg" id="toothModeSeg">
+                <button type="button" class="selected" onclick="setToothMode('single',this)">Single Tooth</button>
+                <button type="button" onclick="setToothMode('multiple',this)">Multiple Teeth</button>
+              </div>
+            </div>
+            <div style="overflow-x:auto;">
+              <div style="min-width:600px;padding:8px 0;">
+                <div class="arch-label">Permanent (Upper)</div>
+                <div style="display:flex;justify-content:center;align-items:flex-end;gap:4px;">
+                  <div style="display:flex;gap:4px;" id="arch-perm-upper-right"></div><div style="width:18px;"></div>
+                  <div style="display:flex;gap:4px;" id="arch-perm-upper-left"></div>
+                </div>
+                <div style="height:2px;margin:14px 0;background:repeating-linear-gradient(90deg,var(--outline-strong) 0,var(--outline-strong) 6px,transparent 6px,transparent 10px);"></div>
+                <div style="display:flex;justify-content:center;align-items:flex-start;gap:4px;">
+                  <div style="display:flex;gap:4px;" id="arch-perm-lower-right"></div><div style="width:18px;"></div>
+                  <div style="display:flex;gap:4px;" id="arch-perm-lower-left"></div>
+                </div>
+                <div class="arch-label">Permanent (Lower)</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="areaBody-quadrant" style="display:none;">
+            <div class="quad-grid">
+              <button type="button" class="quad-tile" data-q="UR" onclick="toggleQuadrant('UR',this)">Upper Right</button>
+              <button type="button" class="quad-tile" data-q="UL" onclick="toggleQuadrant('UL',this)">Upper Left</button>
+              <button type="button" class="quad-tile" data-q="LR" onclick="toggleQuadrant('LR',this)">Lower Right</button>
+              <button type="button" class="quad-tile" data-q="LL" onclick="toggleQuadrant('LL',this)">Lower Left</button>
+            </div>
+          </div>
+
+          <div id="areaBody-tmj" style="display:none;">
+            <div class="chip-grid" style="max-width:480px;margin:0 auto;">
+              <button type="button" class="chip-btn" data-tmj="Left" onclick="selectSingleChip(this,'[data-tmj]')">Left Joint</button>
+              <button type="button" class="chip-btn" data-tmj="Right" onclick="selectSingleChip(this,'[data-tmj]')">Right Joint</button>
+              <button type="button" class="chip-btn" data-tmj="Both" onclick="selectSingleChip(this,'[data-tmj]')">Both Joints</button>
+            </div>
+          </div>
+
+          <div id="areaBody-upperArch" style="display:none;"><p style="text-align:center;color:var(--text-muted);font-size:14px;padding:16px 0;">The full upper arch will be used as the treatment area.</p></div>
+          <div id="areaBody-lowerArch" style="display:none;"><p style="text-align:center;color:var(--text-muted);font-size:14px;padding:16px 0;">The full lower arch will be used as the treatment area.</p></div>
+          <div id="areaBody-wholeMouth" style="display:none;"><p style="text-align:center;color:var(--text-muted);font-size:14px;padding:16px 0;">This applies to the whole mouth — no tooth-level selection needed.</p></div>
+          <div id="areaBody-none" style="display:none;"><p style="text-align:center;color:var(--text-muted);font-size:14px;padding:16px 0;">No area selection required for a consultation.</p></div>
+
+          <div class="selection-summary empty" id="selectionSummary">
+            <span class="material-symbols-outlined">info</span><span class="txt">Choose an area type above to get started.</span>
+          </div>
+
+          <div class="divider"></div>
+          <div style="font-size:12.5px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">2 · Procedure</div>
+          <div class="search-wrap">
+            <span class="material-symbols-outlined">search</span>
+            <input class="input" id="procSearch" placeholder="Search procedures…" oninput="renderProcedureList(this.value)">
+          </div>
+          <div class="proc-list" id="procedureList"></div>
+
+          <div class="divider"></div>
+          <div style="font-size:12.5px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">3 · Details</div>
+          <div id="dynamicFormBody"></div>
+
+          <button class="btn btn-primary btn-block" style="margin-top:8px;" onclick="addProcedureToVisit()"><span class="material-symbols-outlined">add</span> Add Procedure to Visit</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: CLINICAL NOTES -->
+      <div class="wpanel" id="panel-2">
+        <div class="section-card" style="margin-bottom:16px;">
+          <div class="section-title"><span class="material-symbols-outlined">edit_note</span> Clinical Notes</div>
+          <div class="section-sub">Narrative documentation that doesn't fit a structured field, covering the whole visit.</div>
+          <div class="field"><label>Chief Complaint</label><input class="input" id="cnComplaint" placeholder="e.g. Sensitivity when biting on lower left"></div>
+          <div class="field"><label>Diagnosis</label><input class="input" id="cnDiagnosis" placeholder="e.g. Irreversible pulpitis, tooth 36"></div>
+          <div class="field"><label>Clinical Findings</label><textarea class="input" id="cnFindings" placeholder="Intra-oral and radiographic findings…"></textarea></div>
+          <div class="field"><label>Treatment Performed</label><textarea class="input" id="cnPerformed" placeholder="Summary of what was actually done this visit…"></textarea></div>
+          <div class="field" style="margin-bottom:0;"><label>Additional Notes</label><textarea class="input" id="cnNotes" placeholder="Anything else worth flagging…"></textarea></div>
+        </div>
+        <div class="section-card">
+          <div class="section-title"><span class="material-symbols-outlined">attach_file</span> Attachments</div>
+          <div class="section-sub">Demo only — attach a mock reference to this visit.</div>
+          <div class="attach-grid">
+            <button type="button" class="attach-tile" onclick="mockAttach('X-ray')"><span class="material-symbols-outlined">radiology</span> X-rays</button>
+            <button type="button" class="attach-tile" onclick="mockAttach('Photo')"><span class="material-symbols-outlined">photo_camera</span> Photos</button>
+            <button type="button" class="attach-tile" onclick="mockAttach('Intraoral Scan')"><span class="material-symbols-outlined">document_scanner</span> Intraoral Scan</button>
+            <button type="button" class="attach-tile" onclick="mockAttach('Document')"><span class="material-symbols-outlined">description</span> Documents</button>
+          </div>
+          <div id="attachList" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;"></div>
+        </div>
+      </div>
+
+      <!-- STEP 3: BILLING (itemized across all procedures) -->
+      <div class="wpanel" id="panel-3">
+        <div class="section-card" style="margin-bottom:16px;">
+          <div class="section-title"><span class="material-symbols-outlined">receipt_long</span> Charges</div>
+          <div class="section-sub">One line per procedure added, auto-priced — override qty/price as needed, or add an extra item (lab fee, materials…).</div>
+          <table class="cost-table">
+            <thead><tr><th>Item</th><th style="text-align:center;">Qty</th><th style="text-align:right;">Price</th><th style="text-align:right;">Total</th><th></th></tr></thead>
+            <tbody id="costItemsBody"></tbody>
+          </table>
+          <button class="btn btn-ghost" style="margin-top:10px;padding:9px 16px;font-size:13.5px;" onclick="addManualCostItem()"><span class="material-symbols-outlined" style="font-size:18px;">add</span> Add Extra Item</button>
+
+          <div class="divider"></div>
+          <div class="grid-2">
+            <div class="field"><label>Discount (₱)</label><input class="input" type="number" id="billDiscount" placeholder="0.00" oninput="recalcCosts()"></div>
+            <div class="field"><label>Insurance / HMO Coverage (₱)</label><input class="input" type="number" id="billInsurance" placeholder="0.00" oninput="recalcCosts()"></div>
+          </div>
+          <div class="field"><label>Amount Paid Today (₱)</label><input class="input" type="number" id="billPaid" placeholder="0.00" oninput="recalcCosts()"></div>
+
+          <div class="bill-row"><span>Charges Subtotal</span><span class="amt" id="sumSubtotal">₱0.00</span></div>
+          <div class="bill-row"><span>Discount</span><span class="amt" id="sumDiscount">– ₱0.00</span></div>
+          <div class="bill-row"><span>Insurance Coverage</span><span class="amt" id="sumInsurance">– ₱0.00</span></div>
+          <div class="bill-row"><span>Amount Paid Today</span><span class="amt" id="sumPaid">– ₱0.00</span></div>
+          <div class="bill-total"><span>Remaining Balance</span><span id="sumBalance">₱0.00</span></div>
+        </div>
+        <div class="section-card">
+          <div class="section-title"><span class="material-symbols-outlined">payments</span> Payment Method</div>
+          <div class="pay-grid" id="billPayMethods">
+            <button type="button" class="pay-tile" data-method="GCash" onclick="selectPayTile(this,'billPayMethods')"><span class="material-symbols-outlined">smartphone</span><span class="label">GCash</span></button>
+            <button type="button" class="pay-tile" data-method="Bank Transfer" onclick="selectPayTile(this,'billPayMethods')"><span class="material-symbols-outlined">account_balance</span><span class="label">Bank Transfer</span></button>
+            <button type="button" class="pay-tile" data-method="Cash" onclick="selectPayTile(this,'billPayMethods')"><span class="material-symbols-outlined">payments</span><span class="label">Cash</span></button>
+            <button type="button" class="pay-tile" data-method="Credit Card" onclick="selectPayTile(this,'billPayMethods')"><span class="material-symbols-outlined">credit_card</span><span class="label">Credit Card</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: PRESCRIPTION -->
+      <div class="wpanel" id="panel-4">
+        <div class="section-card">
+          <div class="section-title"><span class="material-symbols-outlined">prescriptions</span> Prescription</div>
+          <div class="section-sub">Tap a common medicine to quick-add, or add your own.</div>
+          <div class="chip-grid" style="margin-bottom:20px;">
+            <button type="button" class="chip-btn" onclick="quickAddRx('Amoxicillin 500mg','1 capsule','3x daily','7 days')">Amoxicillin 500mg</button>
+            <button type="button" class="chip-btn" onclick="quickAddRx('Mefenamic Acid 500mg','1 capsule','As needed for pain','5 days')">Mefenamic Acid</button>
+            <button type="button" class="chip-btn" onclick="quickAddRx('Paracetamol 500mg','1 tablet','Every 6 hours','3 days')">Paracetamol</button>
+            <button type="button" class="chip-btn" onclick="quickAddRx('Ibuprofen 400mg','1 tablet','2x daily','5 days')">Ibuprofen</button>
+          </div>
+          <div id="rxList"></div>
+          <button class="btn btn-outline" style="margin-top:6px;" onclick="quickAddRx('','','','')"><span class="material-symbols-outlined">add</span> Add Custom Medicine</button>
+          <div class="field" style="margin-top:18px;margin-bottom:0;"><label>Additional Instructions</label><textarea class="input" id="rxInstructions" placeholder="e.g. Take with food. Avoid alcohol while on antibiotics."></textarea></div>
+        </div>
+      </div>
+
+      <!-- STEP 5: FOLLOW-UP -->
+      <div class="wpanel" id="panel-5">
+        <div class="section-card">
+          <div class="section-title"><span class="material-symbols-outlined">event_upcoming</span> Schedule Follow-up</div>
+          <div class="section-sub">Optional — book the next visit before you close out this record.</div>
+          <div class="toggle-row" style="margin-bottom:6px;">
+            <div><div style="font-weight:700;font-size:15px;">Schedule a follow-up</div><div style="font-size:13px;color:var(--text-muted);">Turn on to set a date, time, and reason.</div></div>
+            <label class="switch"><input type="checkbox" id="fuToggle" onchange="toggleFollowUp()"><span class="track"></span></label>
+          </div>
+          <div id="fuFields" style="display:none;margin-top:16px;">
+            <div class="grid-2">
+              <div class="field"><label>Date</label><input class="input" type="date" id="fuDate" onchange="updateSummary()"></div>
+              <div class="field"><label>Time</label><input class="input" type="time" id="fuTime" onchange="updateSummary()"></div>
+            </div>
+            <div class="field">
+              <label>Purpose</label>
+              <div class="chip-grid" id="fuPurposeChips">
+                <button type="button" class="chip-btn" onclick="selectSingleChip(this,'#fuPurposeChips .chip-btn')">Review</button>
+                <button type="button" class="chip-btn" onclick="selectSingleChip(this,'#fuPurposeChips .chip-btn')">Dressing Change</button>
+                <button type="button" class="chip-btn" onclick="selectSingleChip(this,'#fuPurposeChips .chip-btn')">RCT Visit 2</button>
+                <button type="button" class="chip-btn" onclick="selectSingleChip(this,'#fuPurposeChips .chip-btn')">Denture Delivery</button>
+                <button type="button" class="chip-btn" onclick="selectSingleChip(this,'#fuPurposeChips .chip-btn')">Orthodontic Adjustment</button>
+                <button type="button" class="chip-btn" onclick="selectSingleChip(this,'#fuPurposeChips .chip-btn')">Post-op Check</button>
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Reminder</label>
+              <div style="display:flex;gap:18px;flex-wrap:wrap;">
+                <label style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;"><input type="checkbox" id="fuSms" checked style="width:18px;height:18px;"> SMS</label>
+                <label style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;"><input type="checkbox" id="fuEmail" checked style="width:18px;height:18px;"> Email</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STICKY SUMMARY (desktop) -->
+    <div class="summary-col">
+      <div class="summary-card">
+        <h4>Treatment Summary</h4>
+        <div class="summary-row"><span class="k">Patient</span><span class="v">Rosa Villanueva</span></div>
+        <div class="summary-row"><span class="k">Procedures (<span id="sumProcCount">0</span>)</span><div class="summary-proc-list" id="sumProcList"><span style="opacity:.65;font-weight:500;">None added yet</span></div></div>
+        <div class="summary-row"><span class="k">Status</span><span class="summary-status" id="sumStatus"><span class="material-symbols-outlined" style="font-size:15px;">radio_button_unchecked</span> In Progress</span></div>
+        <div class="summary-row"><span class="k">Total Charges</span><span class="v" id="sumFeePanel">₱0.00</span></div>
+        <div class="summary-row"><span class="k">Prescription</span><span class="v" id="sumRx">No medications</span></div>
+        <div class="summary-row"><span class="k">Follow-up</span><span class="v" id="sumFollowUp">Not scheduled</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wizard-actions">
+    <button class="btn btn-ghost" onclick="showToast('Would return to patient record (demo)','arrow_back')">Cancel</button>
+    <button class="btn btn-outline" onclick="showToast('Draft saved (demo)','save')">Save Draft</button>
+    <span class="spacer"></span>
+    <button class="btn btn-outline" id="wizBackBtn" onclick="wizBack()" style="visibility:hidden;"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+    <button class="btn btn-primary" id="wizNextBtn" onclick="wizNext()">Next <span class="material-symbols-outlined">arrow_forward</span></button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"><span class="material-symbols-outlined">check_circle</span><span id="toastText"></span></div>
+
+<script>
+/* ============================================================
+   CONFIG
+   ============================================================ */
+var STEPS = [
+  {n:1,label:'Procedures'},
+  {n:2,label:'Clinical Notes'},
+  {n:3,label:'Billing'},
+  {n:4,label:'Prescription'},
+  {n:5,label:'Follow-up'}
+];
+var currentStep = 1;
+
+var PROCEDURES = [
+  {name:'Oral Prophylaxis', icon:'clean_hands', fee:800, area:'wholeMouth'},
+  {name:'Tooth Extraction', icon:'content_cut', fee:1500, area:'tooth'},
+  {name:'Restoration', icon:'healing', fee:1350, area:'tooth'},
+  {name:'Root Canal Treatment', icon:'dentistry', fee:2400, area:'tooth'},
+  {name:'Odontectomy', icon:'surgical', fee:4500, area:'tooth'},
+  {name:'Fix Partial Denture', icon:'build', fee:1800, area:'none'},
+  {name:'Removable Partial Denture', icon:'view_in_ar', fee:9500, area:'upperArch'},
+  {name:'Complete Denture', icon:'view_in_ar', fee:18000, area:'upperArch'},
+  {name:'Fluoridization', icon:'water_drop', fee:600, area:'wholeMouth'},
+  {name:'TMJD Therapy', icon:'joint', fee:1200, area:'tmj'},
+  {name:'Orthodontic Therapy', icon:'align_horizontal_center', fee:3500, area:'wholeMouth'},
+  {name:'Tooth Whitening', icon:'auto_awesome', fee:5000, area:'upperArch'},
+  {name:'Oral Consultation with Scanner', icon:'document_scanner', fee:500, area:'none'}
+];
+var AREA_LABELS = {tooth:'Tooth',quadrant:'Quadrant',upperArch:'Upper Arch',lowerArch:'Lower Arch',wholeMouth:'Whole Mouth',tmj:'TMJ',none:'No Selection Required'};
+
+/* draft = the procedure currently being built in the "Add a Procedure" builder */
+var draft = { areaType:null, toothMode:'single', teeth:{}, quadrants:{}, tmj:null, procedure:null };
+/* procedures = every procedure already added to this visit */
+var procedures = [];
+var nextProcId = 1;
+var rxItems = [];
+var manualCostItems = [];
+var costOverrides = {}; // procId -> {qty, price}
+
+/* ============================================================
+   RAIL + NAV
+   ============================================================ */
+function renderRail(){
+  document.getElementById('wizardRail').innerHTML = STEPS.map(function(s){
+    var cls = 'rail-step';
+    if(s.n === currentStep) cls += ' active'; else if(s.n < currentStep) cls += ' done';
+    return '<div class="'+cls+'" onclick="goToStep('+s.n+')"><span class="num">'+(s.n<currentStep?'&#10003;':s.n)+'</span><span class="lbl">'+s.label+'</span></div>';
+  }).join('');
+}
+function goToStep(n){
+  currentStep = n;
+  document.querySelectorAll('.wpanel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('panel-'+n).classList.add('active');
+  renderRail();
+  document.getElementById('wizBackBtn').style.visibility = (n===1) ? 'hidden' : 'visible';
+  var nextBtn = document.getElementById('wizNextBtn');
+  nextBtn.innerHTML = (n===5) ? '<span class="material-symbols-outlined">check_circle</span> Save Treatment' : 'Next <span class="material-symbols-outlined">arrow_forward</span>';
+  if(n===3) renderCostTable();
+  updateSummary();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function wizBack(){ if(currentStep>1) goToStep(currentStep-1); }
+function wizNext(){
+  if(currentStep === 1){
+    if(procedures.length===0){ showToast('Add at least one procedure to this visit','error'); return; }
+    if(draftHasUnsavedSelections()){ showToast('You have an unadded procedure — add it or clear its selection first','error'); return; }
+  }
+  if(currentStep < 5){ goToStep(currentStep+1); } else { submitTreatment(); }
+}
+function draftHasUnsavedSelections(){
+  return !!draft.areaType || !!draft.procedure;
+}
+
+/* ============================================================
+   STEP 1a: AREA TYPE + ODONTOGRAM (builder / draft)
+   ============================================================ */
+function setAreaType(type){
+  draft.areaType = type; draft.teeth={}; draft.quadrants={}; draft.tmj=null;
+  document.querySelectorAll('.area-tile').forEach(function(t){ t.classList.toggle('selected', t.dataset.area===type); });
+  ['tooth','quadrant','upperArch','lowerArch','wholeMouth','tmj','none'].forEach(function(a){
+    var el = document.getElementById('areaBody-'+a);
+    if(el) el.style.display = (a===type) ? 'block' : 'none';
+  });
+  if(type==='tooth'){ initOdontogram(); }
+  updateSelectionSummary();
+}
+function setToothMode(mode, el){
+  draft.toothMode = mode;
+  document.querySelectorAll('#toothModeSeg button').forEach(function(b){ b.classList.remove('selected'); });
+  el.classList.add('selected');
+  if(mode==='single' && Object.keys(draft.teeth).length>1){
+    var keep = Object.keys(draft.teeth)[0];
+    draft.teeth = {}; draft.teeth[keep]=true;
+    document.querySelectorAll('#panel-1 #areaBody-tooth .tooth-part').forEach(function(p){
+      p.classList.toggle('solid-blue', getToothNum(p)===keep);
+    });
+  }
+  updateSelectionSummary();
+}
+function createTooth(number){
+  return '<div class="flex-col-tooth" style="display:flex;flex-direction:column;align-items:center;gap:4px;">'+
+    '<div class="tooth-circle-container"><svg viewBox="0 0 100 100">'+
+      '<path d="M50 50 L20 20 A42 42 0 0 1 80 20 Z" class="tooth-part"></path>'+
+      '<path d="M50 50 L80 20 A42 42 0 0 1 80 80 Z" class="tooth-part"></path>'+
+      '<path d="M50 50 L80 80 A42 42 0 0 1 20 80 Z" class="tooth-part"></path>'+
+      '<path d="M50 50 L20 80 A42 42 0 0 1 20 20 Z" class="tooth-part"></path>'+
+      '<circle cx="50" cy="50" r="18" class="tooth-part"></circle>'+
+    '</svg></div><span class="tooth-num">'+number+'</span></div>';
+}
+function renderArch(elId, start, end){
+  var container = document.getElementById(elId); if(!container) return;
+  var range = []; if(start<end){ for(var i=start;i<=end;i++) range.push(i); } else { for(var i=start;i>=end;i--) range.push(i); }
+  container.innerHTML = range.map(createTooth).join('');
+}
+function initOdontogram(){
+  renderArch('arch-perm-upper-right', 18, 11); renderArch('arch-perm-upper-left', 21, 28);
+  renderArch('arch-perm-lower-right', 48, 41); renderArch('arch-perm-lower-left', 31, 38);
+}
+function getToothNum(el){ var c=el.closest('.flex-col-tooth'); var s=c?c.querySelector('.tooth-num'):null; return s?s.textContent.trim():null; }
+document.addEventListener('click', function(e){
+  if(e.target.classList.contains('tooth-part') && e.target.closest('#panel-1 #areaBody-tooth')){
+    var num = getToothNum(e.target); if(!num) return;
+    if(draft.toothMode==='single'){
+      document.querySelectorAll('#panel-1 #areaBody-tooth .tooth-part').forEach(function(p){ if(getToothNum(p)!==num) p.classList.remove('solid-blue'); });
+      draft.teeth = {};
+      var willSelect = !e.target.classList.contains('solid-blue');
+      e.target.classList.toggle('solid-blue');
+      if(willSelect) draft.teeth[num]=true;
+    } else {
+      e.target.classList.toggle('solid-blue');
+      if(e.target.classList.contains('solid-blue')) draft.teeth[num]=true; else delete draft.teeth[num];
+    }
+    updateSelectionSummary();
+  }
+});
+function toggleQuadrant(q, el){
+  el.classList.toggle('selected');
+  if(el.classList.contains('selected')) draft.quadrants[q]=true; else delete draft.quadrants[q];
+  updateSelectionSummary();
+}
+function selectSingleChip(el, selector){
+  document.querySelectorAll(selector).forEach(function(c){ c.classList.remove('selected'); });
+  el.classList.add('selected');
+  if(el.hasAttribute('data-tmj')){ draft.tmj = el.dataset.tmj; updateSelectionSummary(); }
+}
+function describeDraftSelection(){
+  if(!draft.areaType) return null;
+  if(draft.areaType==='tooth'){
+    var keys = Object.keys(draft.teeth).sort(function(a,b){return a-b;});
+    if(keys.length===0) return null;
+    return (keys.length===1?'Tooth ':'Teeth ') + keys.join(', ');
+  }
+  if(draft.areaType==='quadrant'){
+    var keys = Object.keys(draft.quadrants); if(keys.length===0) return null;
+    var names = {UR:'Upper Right',UL:'Upper Left',LR:'Lower Right',LL:'Lower Left'};
+    return keys.map(function(k){return names[k];}).join(', ') + ' Quadrant' + (keys.length>1?'s':'');
+  }
+  if(draft.areaType==='tmj') return draft.tmj ? draft.tmj+' TMJ' : null;
+  if(draft.areaType==='upperArch') return 'Upper Arch';
+  if(draft.areaType==='lowerArch') return 'Lower Arch';
+  if(draft.areaType==='wholeMouth') return 'Whole Mouth';
+  if(draft.areaType==='none') return 'No Area Selected';
+  return null;
+}
+function isDraftAreaComplete(){
+  if(!draft.areaType) return false;
+  if(draft.areaType==='tooth') return Object.keys(draft.teeth).length>0;
+  if(draft.areaType==='quadrant') return Object.keys(draft.quadrants).length>0;
+  if(draft.areaType==='tmj') return !!draft.tmj;
+  return true;
+}
+function updateSelectionSummary(){
+  var el = document.getElementById('selectionSummary');
+  var desc = describeDraftSelection();
+  if(desc){ el.classList.remove('empty'); el.innerHTML = '<span class="material-symbols-outlined">task_alt</span><span class="txt">Selected: '+desc+'</span>'; }
+  else { el.classList.add('empty'); el.innerHTML = '<span class="material-symbols-outlined">info</span><span class="txt">Choose an area type above to get started.</span>'; }
+}
+
+/* ============================================================
+   STEP 1b: PROCEDURE PICK (draft)
+   ============================================================ */
+function renderProcedureList(query){
+  query = (query||'').toLowerCase().trim();
+  var list = PROCEDURES.filter(function(p){ return p.name.toLowerCase().indexOf(query)!==-1; });
+  list.sort(function(a,b){ var am=(a.area===draft.areaType)?0:1, bm=(b.area===draft.areaType)?0:1; return am-bm; });
+  var el = document.getElementById('procedureList');
+  if(list.length===0){ el.innerHTML = '<div class="empty-state"><span class="material-symbols-outlined">search_off</span><p>No procedures match "'+query+'"</p></div>'; return; }
+  el.innerHTML = list.map(function(p){
+    var isSel = draft.procedure && draft.procedure.name===p.name;
+    var isMatch = p.area===draft.areaType;
+    return '<button type="button" class="proc-row'+(isSel?' selected':'')+'" onclick="chooseProcedure(\''+p.name.replace(/'/g,"\\'")+'\')">'+
+      '<div class="proc-icon"><span class="material-symbols-outlined">'+p.icon+'</span></div>'+
+      '<div><div class="proc-name">'+p.name+'</div><div class="proc-fee">Typical fee '+peso(p.fee)+'</div></div>'+
+      (isMatch && !isSel ? '<span class="proc-match">Fits selection</span>' : '')+
+      '<span class="material-symbols-outlined proc-check">check_circle</span>'+
+    '</button>';
+  }).join('');
+}
+function chooseProcedure(name){
+  draft.procedure = PROCEDURES.find(function(p){ return p.name===name; });
+  renderProcedureList(document.getElementById('procSearch').value);
+  renderDynamicForm();
+}
+
+/* ============================================================
+   STEP 1c: DYNAMIC DETAIL FORM (draft)
+   ============================================================ */
+function fieldHTML(f){
+  var id = 'dyn_'+f.id;
+  if(f.type==='text') return '<div class="field"><label>'+f.label+'</label><input class="input" id="'+id+'" placeholder="'+(f.placeholder||'')+'"></div>';
+  if(f.type==='textarea') return '<div class="field"><label>'+f.label+'</label><textarea class="input" id="'+id+'" placeholder="'+(f.placeholder||'')+'"></textarea></div>';
+  if(f.type==='select') return '<div class="field"><label>'+f.label+'</label><select class="input" id="'+id+'">'+f.options.map(function(o){return '<option>'+o+'</option>';}).join('')+'</select></div>';
+  if(f.type==='chips') return '<div class="field"><label>'+f.label+'</label><div class="chip-grid" id="'+id+'_wrap">'+f.options.map(function(o){ return '<button type="button" class="chip-btn" onclick="toggleChipEl(this)">'+o+'</button>'; }).join('')+'</div></div>';
+  if(f.type==='radio-chips') return '<div class="field"><label>'+f.label+'</label><div class="chip-grid" id="'+id+'_wrap">'+f.options.map(function(o){ return '<button type="button" class="chip-btn" onclick="selectSingleChip(this,\'#'+id+'_wrap .chip-btn\')">'+o+'</button>'; }).join('')+'</div></div>';
+  if(f.type==='checkbox') return '<div class="field"><label style="display:flex;align-items:center;gap:10px;font-weight:600;"><input type="checkbox" id="'+id+'" style="width:19px;height:19px;"> '+f.label+'</label></div>';
+  if(f.type==='surface') return '<div class="field"><label>'+f.label+'</label><div class="surface-grid" id="'+id+'_wrap">'+['M','D','O','B','L','I'].map(function(s){ return '<button type="button" class="surface-btn" onclick="this.classList.toggle(\'selected\')">'+s+'</button>'; }).join('')+'</div><div class="hint">Mesial · Distal · Occlusal · Buccal · Lingual · Incisal</div></div>';
+  if(f.type==='rating') return '<div class="field"><label>'+f.label+'</label><div class="rating-row" id="'+id+'_wrap">'+[1,2,3,4,5].map(function(n){ return '<button type="button" class="rating-dot" onclick="selectRating(this)">'+n+'</button>'; }).join('')+'</div></div>';
+  return '';
+}
+function toggleChipEl(el){ el.classList.toggle('selected'); }
+function selectRating(el){ Array.prototype.forEach.call(el.parentElement.children, function(b){ b.classList.remove('selected'); }); el.classList.add('selected'); }
+
+var DYNAMIC_FORMS = {
+  'Oral Prophylaxis':[
+    {id:'ptype',label:'Cleaning Type',type:'radio-chips',options:['Regular','Deep Cleaning']},
+    {id:'calc',label:'Calculus',type:'select',options:['None','Mild','Moderate','Heavy']},
+    {id:'plaque',label:'Plaque Index',type:'select',options:['Low','Moderate','High']},
+    {id:'bleed',label:'Bleeding on Probing',type:'select',options:['None','Localized','Generalized']},
+    {id:'polish',label:'Polishing Done',type:'checkbox'},
+    {id:'fluoride',label:'Fluoride Applied',type:'checkbox'},
+    {id:'homecare',label:'Home Care Instructions',type:'textarea',placeholder:'Brushing, flossing, and diet guidance given…'}
+  ],
+  'Tooth Extraction':[
+    {id:'reason',label:'Reason',type:'text',placeholder:'e.g. Non-restorable caries'},
+    {id:'etype',label:'Extraction Type',type:'radio-chips',options:['Simple','Surgical']},
+    {id:'anes',label:'Anesthesia',type:'select',options:['Local — Lidocaine','Local — Articaine','Topical Only','Conscious Sedation']},
+    {id:'sutures',label:'Sutures Placed',type:'checkbox'},
+    {id:'complications',label:'Complications',type:'textarea',placeholder:'None, or describe…'}
+  ],
+  'Restoration':[
+    {id:'surface',label:'Surface(s) Involved',type:'surface'},
+    {id:'material',label:'Material',type:'select',options:['Composite','Amalgam','Glass Ionomer','Ceramic Inlay']},
+    {id:'shade',label:'Shade',type:'text',placeholder:'e.g. A2'},
+    {id:'isolation',label:'Isolation Method',type:'select',options:['Rubber Dam','Cotton Roll']},
+    {id:'etch',label:'Etching Performed',type:'checkbox'},
+    {id:'bonding',label:'Bonding Agent Applied',type:'checkbox'},
+    {id:'polished',label:'Polished',type:'checkbox'}
+  ],
+  'Root Canal Treatment':[
+    {id:'visit',label:'Visit #',type:'select',options:['Visit 1','Visit 2','Visit 3','Final / Obturation Visit']},
+    {id:'diagnosis',label:'Diagnosis',type:'text',placeholder:'e.g. Irreversible pulpitis'},
+    {id:'pulp',label:'Pulp Status',type:'select',options:['Vital','Non-vital','Necrotic']},
+    {id:'canals',label:'Canals Treated',type:'text',placeholder:'e.g. MB, DB, P'},
+    {id:'wlength',label:'Working Length (mm)',type:'text'},
+    {id:'instrumentation',label:'Instrumentation System',type:'text',placeholder:'e.g. Rotary NiTi'},
+    {id:'medication',label:'Intracanal Medication',type:'select',options:['Calcium Hydroxide','None','Other']},
+    {id:'obturation',label:'Obturation Done',type:'checkbox'},
+    {id:'temp',label:'Temporary Filling Placed',type:'checkbox'}
+  ],
+  'Odontectomy':[
+    {id:'impaction',label:'Impaction Type',type:'select',options:['Mesioangular','Distoangular','Vertical','Horizontal','Soft Tissue']},
+    {id:'flap',label:'Flap Raised',type:'checkbox'},
+    {id:'bone',label:'Bone Removal Required',type:'checkbox'},
+    {id:'sectioning',label:'Tooth Sectioned',type:'checkbox'},
+    {id:'sutures',label:'Sutures Placed',type:'checkbox'},
+    {id:'complications',label:'Complications',type:'textarea',placeholder:'None, or describe…'}
+  ],
+  'Fix Partial Denture':[
+    {id:'repair',label:'Repair Type',type:'chips',options:['Clasp','Acrylic','Tooth Replacement','Relining','Adjustment']},
+    {id:'lab',label:'Laboratory',type:'text',placeholder:'Lab name'},
+    {id:'delivery',label:'Delivery Date',type:'text',placeholder:'e.g. Aug 05, 2026'}
+  ],
+  'Removable Partial Denture':[
+    {id:'missing',label:'Missing Teeth',type:'text',placeholder:'e.g. 14, 15, 16'},
+    {id:'material',label:'Material',type:'select',options:['Acrylic','Cast Metal Framework','Flexible']},
+    {id:'shade',label:'Shade',type:'text'},
+    {id:'impression',label:'Impression Taken',type:'checkbox'},
+    {id:'tryin',label:'Try-in Completed',type:'checkbox'},
+    {id:'delivered',label:'Delivered',type:'checkbox'},
+    {id:'labcase',label:'Laboratory Case #',type:'text'}
+  ],
+  'Complete Denture':[
+    {id:'which',label:'Upper / Lower / Both',type:'radio-chips',options:['Upper','Lower','Both']},
+    {id:'primary',label:'Primary Impression',type:'checkbox'},
+    {id:'final',label:'Final Impression',type:'checkbox'},
+    {id:'jaw',label:'Jaw Relation Recorded',type:'checkbox'},
+    {id:'tryin',label:'Try-in Completed',type:'checkbox'},
+    {id:'insertion',label:'Insertion Completed',type:'checkbox'},
+    {id:'adjustment',label:'Adjustment Visit',type:'checkbox'},
+    {id:'shade',label:'Shade',type:'text'},
+    {id:'material',label:'Material',type:'select',options:['Heat-cured Acrylic','Cold-cured Acrylic']}
+  ],
+  'Fluoridization':[
+    {id:'application',label:'Application Method',type:'select',options:['Varnish','Gel Tray','Foam']},
+    {id:'risk',label:'Caries Risk Level',type:'select',options:['Low','Moderate','High']},
+    {id:'areas',label:'Areas Treated',type:'text',placeholder:'e.g. All erupted teeth'},
+    {id:'instructions',label:'Post-care Instructions',type:'textarea',placeholder:'e.g. No eating/drinking for 30 minutes'}
+  ],
+  'TMJD Therapy':[
+    {id:'joint',label:'Joint',type:'radio-chips',options:['Left','Right','Both']},
+    {id:'pain',label:'Pain Scale (1–5)',type:'rating'},
+    {id:'symptoms',label:'Symptoms',type:'chips',options:['Clicking','Locking','Muscle Tenderness','Headache']},
+    {id:'rom',label:'Range of Motion',type:'select',options:['Normal','Mildly Limited','Severely Limited']},
+    {id:'therapy',label:'Therapy Given',type:'text',placeholder:'e.g. Moist heat, jaw exercises'},
+    {id:'splint',label:'Splint Prescribed',type:'checkbox'},
+    {id:'exercises',label:'Home Exercises Given',type:'checkbox'}
+  ],
+  'Orthodontic Therapy':[
+    {id:'appliance',label:'Appliance',type:'select',options:['Metal Braces','Ceramic Braces','Clear Aligners','Retainer']},
+    {id:'visittype',label:'Visit Type',type:'select',options:['Bonding','Adjustment','Debonding','Retainer Check']},
+    {id:'archwire',label:'Arch Wire',type:'text',placeholder:'e.g. 0.016 NiTi'},
+    {id:'elastic',label:'Elastics Prescribed',type:'checkbox'},
+    {id:'bracket',label:'Bracket Replaced',type:'checkbox'},
+    {id:'progress',label:'Progress Notes',type:'textarea'}
+  ],
+  'Tooth Whitening':[
+    {id:'method',label:'Method',type:'select',options:['In-office','Take-home Trays','Combination']},
+    {id:'before',label:'Shade Before',type:'text',placeholder:'e.g. A3'},
+    {id:'after',label:'Shade After',type:'text',placeholder:'e.g. A1'},
+    {id:'cycles',label:'Number of Cycles',type:'text'},
+    {id:'sensitivity',label:'Sensitivity Reported',type:'checkbox'}
+  ],
+  'Oral Consultation with Scanner':[
+    {id:'complaint',label:'Chief Complaint',type:'text'},
+    {id:'scanner',label:'Scanner Used',type:'text',placeholder:'e.g. iTero, TRIOS'},
+    {id:'areas',label:'Scanned Areas',type:'text',placeholder:'e.g. Full arch, upper only'},
+    {id:'findings',label:'Findings',type:'textarea'},
+    {id:'stl',label:'STL File Attached',type:'checkbox'}
+  ]
+};
+function renderDynamicForm(){
+  var body = document.getElementById('dynamicFormBody');
+  if(!draft.procedure){ body.innerHTML = '<div class="dyn-empty"><span class="material-symbols-outlined">tune</span><p>Choose a procedure above to see its fields.</p></div>'; return; }
+  var fields = DYNAMIC_FORMS[draft.procedure.name] || [];
+  body.innerHTML = fields.length ? fields.map(fieldHTML).join('') : '<div class="dyn-empty"><span class="material-symbols-outlined">check</span><p>No extra fields for this procedure — ready to add.</p></div>';
+}
+function collectDynValues(){
+  if(!draft.procedure) return [];
+  var fields = DYNAMIC_FORMS[draft.procedure.name] || [];
+  var out = [];
+  fields.forEach(function(f){
+    var id = 'dyn_'+f.id;
+    if(f.type==='text' || f.type==='textarea' || f.type==='select'){
+      var el = document.getElementById(id);
+      if(el && el.value && el.value.trim()) out.push(f.label+': '+el.value.trim());
+    } else if(f.type==='checkbox'){
+      var el = document.getElementById(id);
+      if(el && el.checked) out.push(f.label);
+    } else if(f.type==='radio-chips'){
+      var sel = document.querySelector('#'+id+'_wrap .chip-btn.selected');
+      if(sel) out.push(f.label+': '+sel.textContent.trim());
+    } else if(f.type==='chips'){
+      var sels = document.querySelectorAll('#'+id+'_wrap .chip-btn.selected');
+      if(sels.length) out.push(f.label+': '+Array.prototype.map.call(sels,function(s){return s.textContent.trim();}).join(', '));
+    } else if(f.type==='surface'){
+      var sels = document.querySelectorAll('#'+id+'_wrap .surface-btn.selected');
+      if(sels.length) out.push('Surface: '+Array.prototype.map.call(sels,function(s){return s.textContent.trim();}).join(''));
+    } else if(f.type==='rating'){
+      var sel = document.querySelector('#'+id+'_wrap .rating-dot.selected');
+      if(sel) out.push(f.label+': '+sel.textContent.trim());
+    }
+  });
+  return out;
+}
+
+/* ============================================================
+   ADD / REMOVE PROCEDURES ON THE VISIT
+   ============================================================ */
+function addProcedureToVisit(){
+  if(!isDraftAreaComplete()){ showToast('Select a treatment area first','error'); return; }
+  if(!draft.procedure){ showToast('Choose a procedure to add','error'); return; }
+  var details = collectDynValues();
+  var item = {
+    id: 'proc'+(nextProcId++),
+    areaDesc: describeDraftSelection(),
+    procedure: draft.procedure,
+    fee: draft.procedure.fee,
+    details: details
+  };
+  procedures.push(item);
+  resetDraft();
+  renderAddedProcedures();
+  showToast(item.procedure.name+' added to this visit','check_circle');
+}
+function resetDraft(){
+  draft = { areaType:null, toothMode:'single', teeth:{}, quadrants:{}, tmj:null, procedure:null };
+  document.querySelectorAll('.area-tile').forEach(function(t){ t.classList.remove('selected'); });
+  ['tooth','quadrant','upperArch','lowerArch','wholeMouth','tmj','none'].forEach(function(a){ var el=document.getElementById('areaBody-'+a); if(el) el.style.display='none'; });
+  document.querySelectorAll('#toothModeSeg button').forEach(function(b,i){ b.classList.toggle('selected', i===0); });
+  document.getElementById('procSearch').value = '';
+  updateSelectionSummary();
+  renderProcedureList('');
+  renderDynamicForm();
+}
+function renderAddedProcedures(){
+  document.getElementById('procCountBadge').textContent = procedures.length;
+  var el = document.getElementById('addedProceduresList');
+  if(procedures.length===0){
+    el.innerHTML = '<div class="added-proc-empty">No procedures added yet — build one below and tap "Add Procedure to Visit."</div>';
+  } else {
+    el.innerHTML = procedures.map(function(p,i){
+      var chips = p.details.slice(0,3).map(function(d){ return '<span class="detail-chip">'+d+'</span>'; }).join('');
+      if(p.details.length>3) chips += '<span class="detail-chip">+'+(p.details.length-3)+' more</span>';
+      return '<div class="added-proc-card">'+
+        '<div class="idx">'+(i+1)+'</div>'+
+        '<div class="body"><div class="name">'+p.procedure.name+'</div><div class="meta">'+p.areaDesc+'</div>'+
+        (chips ? '<div class="detail-chips">'+chips+'</div>' : '')+
+        '</div>'+
+        '<div class="fee">'+peso(costOverrides[p.id]&&costOverrides[p.id].price!=null?costOverrides[p.id].price:p.fee)+'</div>'+
+        '<button class="remove-btn" onclick="removeProcedure(\''+p.id+'\')"><span class="material-symbols-outlined" style="font-size:18px;">delete</span></button>'+
+      '</div>';
+    }).join('');
+  }
+  updateSummary();
+}
+function removeProcedure(id){
+  procedures = procedures.filter(function(p){ return p.id!==id; });
+  delete costOverrides[id];
+  renderAddedProcedures();
+  if(document.getElementById('panel-3').classList.contains('active')) renderCostTable();
+}
+
+/* ============================================================
+   ATTACHMENTS
+   ============================================================ */
+var attachments = [];
+function mockAttach(kind){ attachments.push(kind); renderAttachList(); showToast(kind+' attached (demo)','attach_file'); }
+function renderAttachList(){
+  var el = document.getElementById('attachList');
+  el.innerHTML = attachments.map(function(a,i){
+    return '<span style="background:var(--primary-soft);color:var(--primary);font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;">'+a+
+      '<button onclick="removeAttach('+i+')" style="background:none;border:none;color:var(--primary);cursor:pointer;font-size:15px;line-height:1;">&times;</button></span>';
+  }).join('');
+}
+function removeAttach(i){ attachments.splice(i,1); renderAttachList(); }
+
+/* ============================================================
+   BILLING — itemized across all procedures + manual items
+   ============================================================ */
+function peso(n){ return '\u20B1' + Number(n||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function getCostItems(){
+  var items = procedures.map(function(p){
+    var ov = costOverrides[p.id] || {};
+    return {id:p.id, source:'proc', desc:p.procedure.name+' — '+p.areaDesc, qty: ov.qty!=null?ov.qty:1, price: ov.price!=null?ov.price:p.fee};
+  });
+  return items.concat(manualCostItems);
+}
+function renderCostTable(){
+  var body = document.getElementById('costItemsBody');
+  var items = getCostItems();
+  if(items.length===0){
+    body.innerHTML = '<tr><td colspan="5" style="padding:18px 0;color:var(--text-muted);text-align:center;">No charges yet — add a procedure in Step 1 or add an item.</td></tr>';
+  } else {
+    body.innerHTML = items.map(function(item,i){
+      var editHandlers = item.source==='proc'
+        ? "onCostQtyChange('"+item.id+"',this.value)" : "onManualQtyChange('"+item.id+"',this.value)";
+      var priceHandlers = item.source==='proc'
+        ? "onCostPriceChange('"+item.id+"',this.value)" : "onManualPriceChange('"+item.id+"',this.value)";
+      var removeBtn = item.source==='manual'
+        ? '<button class="rx-remove" style="width:32px;height:32px;" onclick="removeManualCostItem(\''+item.id+'\')"><span class="material-symbols-outlined" style="font-size:18px;">close</span></button>'
+        : '<span class="src-tag">Visit</span>';
+      return '<tr>'+
+        '<td>'+item.desc+'</td>'+
+        '<td style="text-align:center;"><input class="qty" type="number" value="'+item.qty+'" oninput="'+editHandlers+';recalcCosts();"></td>'+
+        '<td style="text-align:right;"><input class="price" type="number" value="'+item.price+'" oninput="'+priceHandlers+';recalcCosts();"></td>'+
+        '<td style="text-align:right;font-weight:700;">'+peso(item.qty*item.price)+'</td>'+
+        '<td>'+removeBtn+'</td>'+
+      '</tr>';
+    }).join('');
+  }
+  recalcCosts();
+}
+function onCostQtyChange(id,val){ costOverrides[id]=costOverrides[id]||{}; costOverrides[id].qty=parseFloat(val)||0; }
+function onCostPriceChange(id,val){ costOverrides[id]=costOverrides[id]||{}; costOverrides[id].price=parseFloat(val)||0; }
+function onManualQtyChange(id,val){ var m=manualCostItems.find(function(x){return x.id===id;}); if(m) m.qty=parseFloat(val)||0; }
+function onManualPriceChange(id,val){ var m=manualCostItems.find(function(x){return x.id===id;}); if(m) m.price=parseFloat(val)||0; }
+function addManualCostItem(){
+  manualCostItems.push({id:'manual'+Date.now(), source:'manual', desc:'Extra Item', qty:1, price:0});
+  renderCostTable();
+}
+function removeManualCostItem(id){ manualCostItems = manualCostItems.filter(function(m){return m.id!==id;}); renderCostTable(); }
+function recalcCosts(){
+  var subtotal = getCostItems().reduce(function(s,item){ return s + (item.qty*item.price); }, 0);
+  var discount = parseFloat(document.getElementById('billDiscount').value) || 0;
+  var insurance = parseFloat(document.getElementById('billInsurance').value) || 0;
+  var paid = parseFloat(document.getElementById('billPaid').value) || 0;
+  var balance = Math.max(subtotal - discount - insurance - paid, 0);
+  document.getElementById('sumSubtotal').textContent = peso(subtotal);
+  document.getElementById('sumDiscount').textContent = '– ' + peso(discount);
+  document.getElementById('sumInsurance').textContent = '– ' + peso(insurance);
+  document.getElementById('sumPaid').textContent = '– ' + peso(paid);
+  document.getElementById('sumBalance').textContent = peso(balance);
+  window._visitSubtotal = subtotal;
+  renderAddedProcedures();
+  updateSummary();
+}
+function selectPayTile(el, groupId){
+  document.querySelectorAll('#'+groupId+' .pay-tile').forEach(function(c){ c.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+/* ============================================================
+   PRESCRIPTION
+   ============================================================ */
+function renderRxList(){
+  var el = document.getElementById('rxList');
+  if(rxItems.length===0){ el.innerHTML = '<div class="empty-state"><span class="material-symbols-outlined">medication</span><p>No medicine added yet.</p></div>'; updateSummary(); return; }
+  el.innerHTML = rxItems.map(function(rx,i){
+    return '<div class="rx-card"><div class="rx-body">'+
+      '<input class="input" style="margin-bottom:8px;font-weight:700;" value="'+rx.name+'" placeholder="Medicine name" oninput="rxItems['+i+'].name=this.value;updateSummary();">'+
+      '<div class="grid-3">'+
+        '<input class="input" value="'+rx.dosage+'" placeholder="Dosage" oninput="rxItems['+i+'].dosage=this.value">'+
+        '<input class="input" value="'+rx.frequency+'" placeholder="Frequency" oninput="rxItems['+i+'].frequency=this.value">'+
+        '<input class="input" value="'+rx.duration+'" placeholder="Duration" oninput="rxItems['+i+'].duration=this.value">'+
+      '</div></div>'+
+      '<button class="rx-remove" onclick="removeRx('+i+')"><span class="material-symbols-outlined">delete</span></button>'+
+    '</div>';
+  }).join('');
+  updateSummary();
+}
+function quickAddRx(name,dosage,frequency,duration){ rxItems.push({name:name,dosage:dosage,frequency:frequency,duration:duration}); renderRxList(); }
+function removeRx(i){ rxItems.splice(i,1); renderRxList(); }
+
+/* ============================================================
+   FOLLOW-UP
+   ============================================================ */
+function toggleFollowUp(){
+  document.getElementById('fuFields').style.display = document.getElementById('fuToggle').checked ? 'block' : 'none';
+  updateSummary();
+}
+
+/* ============================================================
+   SUMMARY PANEL
+   ============================================================ */
+function updateSummary(){
+  document.getElementById('sumProcCount').textContent = procedures.length;
+  var listEl = document.getElementById('sumProcList');
+  listEl.innerHTML = procedures.length
+    ? procedures.map(function(p){ return '<span>'+p.procedure.name+' <span style="opacity:.65;font-weight:500;">('+p.areaDesc+')</span></span>'; }).join('')
+    : '<span style="opacity:.65;font-weight:500;">None added yet</span>';
+  var statusEl = document.getElementById('sumStatus');
+  statusEl.innerHTML = (currentStep>=5)
+    ? '<span class="material-symbols-outlined" style="font-size:15px;">check_circle</span> Ready to Save'
+    : '<span class="material-symbols-outlined" style="font-size:15px;">radio_button_unchecked</span> In Progress';
+  var total = getCostItems().reduce(function(s,item){ return s + (item.qty*item.price); }, 0);
+  document.getElementById('sumFeePanel').textContent = peso(total);
+  document.getElementById('sumRx').textContent = rxItems.length ? (rxItems.length + ' medication' + (rxItems.length>1?'s':'')) : 'No medications';
+  var fuOn = document.getElementById('fuToggle') && document.getElementById('fuToggle').checked;
+  if(fuOn){
+    var d = document.getElementById('fuDate').value, t = document.getElementById('fuTime').value;
+    document.getElementById('sumFollowUp').textContent = (d?formatDateLabel(d):'Date TBD') + (t?(' · '+t):'');
+  } else { document.getElementById('sumFollowUp').textContent = 'Not scheduled'; }
+}
+function formatDateLabel(iso){ var d=new Date(iso+'T00:00:00'); return d.toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'}); }
+
+/* ============================================================
+   SUBMIT
+   ============================================================ */
+function submitTreatment(){
+  if(procedures.length===0){ showToast('Add at least one procedure before saving','error'); return; }
+  var method = document.querySelector('#billPayMethods .pay-tile.selected');
+  if(!method){ showToast('Select a payment method in Billing','error'); goToStep(3); return; }
+  showToast(procedures.length+' procedure'+(procedures.length>1?'s':'')+' saved for Rosa Villanueva', 'check_circle');
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(text, icon){
+  var t = document.getElementById('toast');
+  document.getElementById('toastText').textContent = text;
+  t.querySelector('.material-symbols-outlined').textContent = icon || 'check_circle';
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2600);
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+(function(){
+  renderRail();
+  renderAddedProcedures();
+  renderProcedureList('');
+  renderDynamicForm();
+  renderRxList();
+  updateSelectionSummary();
+  updateSummary();
+})();
+</script>
+</body>
+</html>
